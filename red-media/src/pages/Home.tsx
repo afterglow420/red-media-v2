@@ -10,7 +10,6 @@ import useAnimateScroll from '@hooks/useAnimateScroll';
 import useScrollControl from '@hooks/useScrollControl';
 import { useSectionStore } from '@store/useSectionStore';
 import VideoPresentation from '@components/VideoPresentation';
-import useViewportHeight from '@hooks/useViewportHeight';
 
 const Home = () => {
     // Hooks
@@ -18,8 +17,7 @@ const Home = () => {
     useScrollControl();
 
     const setTotalSections = useSectionStore((state) => state.setTotalSections);
-    const viewportHeight = useViewportHeight();
-    console.log(viewportHeight, 'viewportHeight');
+
     // Effects
     useEffect(() => {
         // Update the total number of sections
@@ -31,25 +29,25 @@ const Home = () => {
 
     return (
         <div className="text-white">
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-1" ref={(el) => (sectionsRef.current[0] = el)}>
+            <div className={`h-dvh w-full`} id="section-1" ref={(el) => (sectionsRef.current[0] = el)}>
                 <VideoPresentation />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-2" ref={(el) => (sectionsRef.current[1] = el)}>
+            <div className={`h-dvh w-full`} id="section-2" ref={(el) => (sectionsRef.current[1] = el)}>
                 <Creation />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-3" ref={(el) => (sectionsRef.current[2] = el)}>
+            <div className={`h-dvh w-full`} id="section-3" ref={(el) => (sectionsRef.current[2] = el)}>
                 <Manifest />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-4" ref={(el) => (sectionsRef.current[3] = el)}>
+            <div className={`h-dvh w-full`} id="section-4" ref={(el) => (sectionsRef.current[3] = el)}>
                 <Values />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-5" ref={(el) => (sectionsRef.current[4] = el)}>
+            <div className={`h-dvh w-full`} id="section-5" ref={(el) => (sectionsRef.current[4] = el)}>
                 <WhoWeAre />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-6" ref={(el) => (sectionsRef.current[5] = el)}>
+            <div className={`h-dvh w-full`} id="section-6" ref={(el) => (sectionsRef.current[5] = el)}>
                 <Process />
             </div>
-            <div className={`h-[${viewportHeight}px] w-full`} id="section-7" ref={(el) => (sectionsRef.current[6] = el)}>
+            <div className={`h-dvh w-full`} id="section-7" ref={(el) => (sectionsRef.current[6] = el)}>
                 <Resources />
             </div>
         </div>
