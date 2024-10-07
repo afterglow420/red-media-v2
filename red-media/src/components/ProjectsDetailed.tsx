@@ -24,7 +24,7 @@ const ProjectsDetailed = () => {
                 opacity: [0, 1],
                 easing: 'easeOutExpo',
                 duration: 800,
-                delay: 500, // Start 200ms after the previous animation ends
+                delay: 500, // Start 500ms after the previous animation ends
             })
             // Animate "PROJECTS" Paragraph next
             .add({
@@ -95,7 +95,7 @@ const ProjectsDetailed = () => {
                     />
                 </div>
                 {/* 3x3 Flexbox Grid for Project Videos */}
-                <div className="flex flex-wrap justify-center items-center gap-6 w-full lg:w-auto overflow-y-auto">
+                <div className="flex flex-wrap justify-center items-center gap-6 w-full lg:w-auto max-h-[80vh] sm:max-h-none overflow-y-auto">
                     {projectsData.map((project, index) => (
                         <div
                             key={index}
@@ -133,6 +133,7 @@ const ProjectsDetailed = () => {
 };
 
 export default ProjectsDetailed;
+
 
 // projectsData.js
 const projectsData = [
