@@ -53,7 +53,7 @@ const MobileNavigation = () => {
     }, [isOpen, closeMenu]);
 
     return (
-        <div>
+        <div className="absolute top-0 left-0 w-full h-full">
             {/* Mobile Navigation (Burger Menu) */}
             <div
                 className="relative lg:hidden h-16 flex flex-row px-2 items-center justify-between z-50"

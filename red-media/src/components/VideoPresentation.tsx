@@ -1,12 +1,12 @@
-// import Navigation from "./Navigation";
+import Navigation from "./Navigation";
 
 const VideoPresentation = () => {
     return (
-        <>
-            {/* <Navigation /> */}
+        <div className="relative h-full w-full">
+            <Navigation />
 
             {/* Video Section */}
-            <div className="flex-1 flex items-center justify-center w-full">
+            <div className="flex-1 flex items-center justify-center w-full h-full">
                 <video
                     src="/videos/process-creation-1.mp4"
                     controls
@@ -18,7 +18,7 @@ const VideoPresentation = () => {
                     Your browser does not support the video tag.
                 </video>
             </div>
-        </>
+        </div>
     );
 };
 
