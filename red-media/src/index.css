@@ -1,24 +1,50 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
+/* Ensure html and body take up the full viewport height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    position: relative;
-    max-width: 1600px;
-    margin: 0 auto;
+    background-color: #212121;
+    overflow-x: hidden;
+    font-family: 'Libre Franklin', sans-serif;
+    scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
 }
 
-*,
-*:before,
-*:after {
+/* Apply box-sizing to all elements */
+*, *::before, *::after {
     box-sizing: inherit;
 }
 
-body {
-    background-color: #212121;
-    overflow-x: hidden;
-    /* border-left: 3px solid #2d2d2d; */
-    /* border-right: 3px solid #2d2d2d; */
-    font-family: 'Libre Franklin', sans-serif;
+/* Optional: Define container max-width for inner content if needed */
+.container {
+    max-width: 1600px; /* Define only for specific containers, not the entire html */
+    margin: 0 auto;
+}
+
+/* Scroll Snap Styles */
+.scroll-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.section {
+    scroll-snap-align: start;
+    height: 100vh;
+}
+
+/* Optional: Hide scrollbar for a cleaner look */
+.scroll-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.scroll-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
