@@ -7,12 +7,18 @@ const useAnimateScroll = () => {
     const currentSection = useSectionStore((state) => state.currentSection);
 
     useEffect(() => {
-        anime({
-            targets: 'html, body',
-            scrollTop: window.innerHeight * (currentSection - 1),
-            duration: 600,
-            easing: 'easeInOutQuad',
-        });
+        const targetElement = document.getElementById(`section-${currentSection}`);
+        if (targetElement) {
+            const targetPosition = targetElement.offsetTop;
+            const scrollingElement = document.scrollingElement || document.documentElement;
+
+            anime({
+                targets: scrollingElement,
+                scrollTop: targetPosition,
+                duration: 600,
+                easing: 'easeInOutQuad',
+            });
+        }
     }, [currentSection]);
 };
 
