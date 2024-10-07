@@ -1,15 +1,14 @@
-import Navigation from "./Navigation";
-import processVideo from '/videos/process-creation-1.mp4';
+// import Navigation from "./Navigation";
 
 const VideoPresentation = () => {
     return (
         <>
-            <Navigation />
+            {/* <Navigation /> */}
 
             {/* Video Section */}
             <div className="flex-1 flex items-center justify-center w-full">
                 <video
-                    src={processVideo}
+                    src="/videos/process-creation-1.mp4"
                     controls
                     autoPlay
                     loop

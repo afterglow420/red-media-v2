@@ -1,5 +1,5 @@
 // src/pages/Home.tsx
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import Creation from '@components/Creation';
 import Manifest from '@components/Manifest';
 import Values from '@components/Values';
@@ -10,6 +10,7 @@ import useAnimateScroll from '@hooks/useAnimateScroll';
 import useScrollControl from '@hooks/useScrollControl';
 import { useSectionStore } from '@store/useSectionStore';
 import VideoPresentation from '@components/VideoPresentation';
+import Navigation from '@components/Navigation';
 
 const Home = () => {
     // Hooks
@@ -24,30 +25,41 @@ const Home = () => {
         setTotalSections(7); // Adjust if you add or remove sections
     }, [setTotalSections]);
 
-    // Optional: Refs for each section
-    const sectionsRef = useRef<(HTMLElement | null)[]>([]);
-
     return (
         <div className="text-white">
-            <div className={`h-dvh w-full`} id="section-1" ref={(el) => (sectionsRef.current[0] = el)}>
+            {/* Section 1: Video Presentation with Navigation */}
+            <div className="h-screen w-full flex flex-col" id="section-1">
+                <Navigation /> {/* Only visible in Section 1 */}
                 <VideoPresentation />
             </div>
-            <div className={`h-dvh w-full`} id="section-2" ref={(el) => (sectionsRef.current[1] = el)}>
+
+            {/* Section 2: Creation */}
+            <div className="h-screen w-full" id="section-2">
                 <Creation />
             </div>
-            <div className={`h-dvh w-full`} id="section-3" ref={(el) => (sectionsRef.current[2] = el)}>
+
+            {/* Section 3: Manifest */}
+            <div className="h-screen w-full" id="section-3">
                 <Manifest />
             </div>
-            <div className={`h-dvh w-full`} id="section-4" ref={(el) => (sectionsRef.current[3] = el)}>
+
+            {/* Section 4: Values */}
+            <div className="h-screen w-full" id="section-4">
                 <Values />
             </div>
-            <div className={`h-dvh w-full`} id="section-5" ref={(el) => (sectionsRef.current[4] = el)}>
+
+            {/* Section 5: Who We Are */}
+            <div className="h-screen w-full" id="section-5">
                 <WhoWeAre />
             </div>
-            <div className={`h-dvh w-full`} id="section-6" ref={(el) => (sectionsRef.current[5] = el)}>
+
+            {/* Section 6: Process */}
+            <div className="h-screen w-full" id="section-6">
                 <Process />
             </div>
-            <div className={`h-dvh w-full`} id="section-7" ref={(el) => (sectionsRef.current[6] = el)}>
+
+            {/* Section 7: Resources */}
+            <div className="h-screen w-full" id="section-7">
                 <Resources />
             </div>
         </div>
