@@ -6,6 +6,31 @@ export default {
     ],
     theme: {
         extend: {
+            keyframes: {
+                slideInFromRight: {
+                    '0%': { transform: 'translateX(150vw)' },
+                    '100%': { transform: 'translateX(0)' },
+                },
+                slideInFromLeft: {
+                    '0%': { transform: 'translateX(-150vw)' },
+                    '100%': { transform: 'translateX(0)' },
+                },
+                fadeIn: {
+                    '0%': { opacity: 0 },
+                    '100%': { opacity: 1 },
+                },
+            },
+            animation: {
+                slideInFromRight: 'slideInFromRight 2.5s ease-out forwards',
+                slideInFromLeft: 'slideInFromLeft 2.5s ease-out forwards',
+                fadeIn: 'fadeIn 1s ease-out forwards',
+                fadeInDelayed: 'fadeIn 1s ease-out 1s forwards', // Includes 1s delay
+                fadeInSlower: 'fadeIn 2s ease-out 2s forwards',
+            },
+            // If Tailwind's default delay utilities don't cover 1s, extend them
+            transitionDelay: {
+                1000: '1000ms',
+            },
             colors: {
                 customRed: '#c9111d',
                 // Add more custom colors as needed

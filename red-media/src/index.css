@@ -13,6 +13,8 @@ html, body {
     overflow-x: hidden;
     font-family: 'Libre Franklin', sans-serif;
     scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 /* Apply box-sizing to all elements */

@@ -51,7 +51,7 @@ const DesktopNavigation = () => {
     }, []);
 
     return (
-        <div className={`relative border-t-[1rem] border-x-[1rem] ${shouldBeInverted ? 'border-[#2a2726]' : 'border-white'}  text-white p-2 ${shouldBeInverted ? 'bg-white' : 'bg-[#2a2726]'}  h-32`}>
+        <div className={`absolute top-0 left-0 border-t-[1rem] border-x-[1rem] ${shouldBeInverted ? 'border-[#2a2726]' : 'border-white'}  text-white p-2 ${shouldBeInverted ? 'bg-white' : 'bg-[#2a2726]'} h-32 w-full z-50`}>
             <div className="flex items-center justify-between h-full">
                 {/* Left Navigation Links */}
                 <div className="flex items-center justify-between w-full">
