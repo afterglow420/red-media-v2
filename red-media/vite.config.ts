@@ -8,6 +8,11 @@ const root = resolve(__dirname, 'src');
 // Export the Vite configuration
 export default defineConfig({
   plugins: [react()],
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true,
+  },
   resolve: {
     alias: {
       '@assets': resolve(root, 'assets'),

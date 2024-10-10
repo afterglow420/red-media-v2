@@ -111,7 +111,7 @@ const Manifest = () => {
                     {/* Manifest Text */}
                     <div
                         ref={manifestText}
-                        className={`absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-bold h-[90%] text-[60px] md:text-[80px] lg:text-[120px] xl:text-[160px] leading-none px-1 text-shadow-lg ${!animationsEnabled ? 'opacity-100' : 'opacity-0'}`}
+                        className={`absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-bold h-[90%] text-[60px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 text-shadow-lg ${!animationsEnabled ? 'opacity-100' : 'opacity-0'}`}
                     >
                         {"MANIFEST".split("").map((letter, index) => (
                             <div key={index}>{letter}</div>
