@@ -5,15 +5,18 @@ interface SectionStoreState {
     currentSection: number;
     totalSections: number;
     animationsEnabled: boolean;
+    isScrolling: boolean;
     setCurrentSection: (section: number | ((prevSection: number) => number)) => void;
     setTotalSections: (total: number) => void;
     toggleAnimationsEnabled: () => void;
+    setIsScrolling: (isScrolling: boolean) => void;
 }
 
 export const useSectionStore = create<SectionStoreState>((set) => ({
     currentSection: 1,
-    totalSections: 7, // Update if you have more or fewer sections
+    totalSections: 7,
     animationsEnabled: true,
+    isScrolling: false,
     toggleAnimationsEnabled: () => set((state) => ({ animationsEnabled: !state.animationsEnabled })),
     setCurrentSection: (sectionOrUpdater) =>
         set((state) => ({
@@ -23,4 +26,5 @@ export const useSectionStore = create<SectionStoreState>((set) => ({
                     : sectionOrUpdater,
         })),
     setTotalSections: (total) => set({ totalSections: total }),
+    setIsScrolling: (isScrolling) => set({ isScrolling }),
 }));
