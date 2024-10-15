@@ -23,89 +23,88 @@ const Creation = () => {
     // Effects
     useEffect(() => {
         if (currentSection === 2 && animationsEnabled && !isScrolling) {
-          // Set the animations as active
-          animationsActive.current = true;
-      
-          requestAnimationFrame(() => {
-            // Entry animations
-            anime({
-              targets: imageElement.current,
-              opacity: [0, 1],
-              translateX: ["100vw", "0"],
-              duration: 1500,
-              easing: "easeInOutSine",
+            // Set the animations as active
+            animationsActive.current = true;
+
+            requestAnimationFrame(() => {
+                // Entry animations
+                anime({
+                    targets: imageElement.current,
+                    opacity: [0, 1],
+                    translateX: ["100vw", "0"],
+                    duration: 1500,
+                    easing: "easeInOutSine",
+                });
+
+                anime({
+                    targets: redElement.current,
+                    opacity: [0, 1],
+                    translateX: ["-100vw", "0"],
+                    duration: 1500,
+                    easing: "easeInOutSine",
+                });
+
+                anime({
+                    targets: pillsContainer.current,
+                    opacity: [0, 1],
+                    duration: 500,
+                    delay: 1500,
+                    easing: "easeInOutSine",
+                });
             });
-      
-            anime({
-              targets: redElement.current,
-              opacity: [0, 1],
-              translateX: ["-100vw", "0"],
-              duration: 1500,
-              easing: "easeInOutSine",
-            });
-      
-            anime({
-              targets: pillsContainer.current,
-              opacity: [0, 1],
-              duration: 500,
-              delay: 1500,
-              easing: "easeInOutSine",
-            });
-          });
         } else if (animationsActive.current) {
-          // Conditions no longer met; initiate exit animations
-          animationsActive.current = false;
-      
-          requestAnimationFrame(() => {
-            // Exit animations
-            anime({
-              targets: imageElement.current,
-              opacity: [1, 0],
-              translateX: ["0", "100vw"],
-              duration: 500,
-              easing: "easeInOutSine",
-              complete: () => {
-                if (imageElement.current) {
-                  imageElement.current.style.opacity = "0";
-                  imageElement.current.style.transform = "translateX(100vw)";
-                }
-              },
+            // Conditions no longer met; initiate exit animations
+            animationsActive.current = false;
+
+            requestAnimationFrame(() => {
+                // Exit animations
+                anime({
+                    targets: imageElement.current,
+                    opacity: [1, 0],
+                    translateX: ["0", "100vw"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (imageElement.current) {
+                            imageElement.current.style.opacity = "0";
+                            imageElement.current.style.transform = "translateX(100vw)";
+                        }
+                    },
+                });
+
+                anime({
+                    targets: redElement.current,
+                    opacity: [1, 0],
+                    translateX: ["0", "-100vw"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (redElement.current) {
+                            redElement.current.style.opacity = "0";
+                            redElement.current.style.transform = "translateX(-100vw)";
+                        }
+                    },
+                });
+
+                anime({
+                    targets: pillsContainer.current,
+                    opacity: [1, 0],
+                    duration: 100,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (pillsContainer.current) {
+                            pillsContainer.current.style.opacity = "0";
+                        }
+                    },
+                });
             });
-      
-            anime({
-              targets: redElement.current,
-              opacity: [1, 0],
-              translateX: ["0", "-100vw"],
-              duration: 500,
-              easing: "easeInOutSine",
-              complete: () => {
-                if (redElement.current) {
-                  redElement.current.style.opacity = "0";
-                  redElement.current.style.transform = "translateX(-100vw)";
-                }
-              },
-            });
-      
-            anime({
-              targets: pillsContainer.current,
-              opacity: [1, 0],
-              duration: 100,
-              easing: "easeInOutSine",
-              complete: () => {
-                if (pillsContainer.current) {
-                  pillsContainer.current.style.opacity = "0";
-                }
-              },
-            });
-          });
         }
-      
+
         return () => {
-          // Remove any running animations
-          anime.remove([imageElement.current, redElement.current, pillsContainer.current]);
+            // Remove any running animations
+            anime.remove([imageElement.current, redElement.current, pillsContainer.current]);
         };
-      }, [currentSection, animationsEnabled, isScrolling]);
-      
+    }, [currentSection, animationsEnabled, isScrolling]);
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full">

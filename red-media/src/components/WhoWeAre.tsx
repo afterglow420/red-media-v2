@@ -27,7 +27,7 @@ const WhoWeAre = () => {
     // Hooks
     const [width] = useWindowSize();
     const repetitions = useRepetitions(animatedBarRef, width);
-    useBeamAnimation(animatedBarRef, repetitions, width);
+    // useBeamAnimation(animatedBarRef, repetitions, width);
 
     // Effects
     useEffect(() => {

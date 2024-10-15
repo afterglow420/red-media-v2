@@ -6,8 +6,7 @@ import anime from "animejs";
 
 const Values = () => {
     // Store
-    const currentSection = useSectionStore((state) => state.currentSection);
-    const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
+    const { currentSection, animationsEnabled, isScrolling } = useSectionStore();
 
     // Refs
     const redBracket = useRef<HTMLDivElement>(null);
@@ -19,152 +18,266 @@ const Values = () => {
     const empowermentSlider = useRef<HTMLDivElement>(null);
     const trustworthinessText = useRef<HTMLDivElement>(null);
     const trustworthinessSlider = useRef<HTMLDivElement>(null);
-    const hiddenValuesText = useRef<HTMLDivElement>(null);
-    const hiddenR = useRef<HTMLDivElement>(null);
+    const animationsActive = useRef(false);
 
-    // Effects
     useEffect(() => {
-        if (currentSection !== 4) return;
-        if (!animationsEnabled) return;
-        
-        const t1 = anime.timeline({
-            easing: 'easeOutQuart',
-        });
+        if (currentSection === 4 && animationsEnabled && !isScrolling) {
+            if (animationsActive.current) return; // Prevent redundant animations
+            animationsActive.current = true;
 
-        t1
-            .add({
-                targets: redBracket.current,
-                translateX: ['-1500%', 0],
-                opacity: [0, 1],
-                duration: 1000,
-                delay: 400,
-            })
-            .add({
-                targets: topText.current,
-                opacity: [0, 1],
-                translateX: [-60, 0],
-                duration: 1000,
-                delay: 200,
-            }, '-=750')
-            .add({
-                targets: whiteBracket.current,
-                translateX: ['1500%', 0],
-                opacity: [0, 1],
-                duration: 1000,
-            }, '-=900')
-            .add({
-                targets: ambitionSlider.current,
-                translateX: [0, '100%'],
-                duration: 500,
-                opacity: [0, 1],
-            }, '-=250')
-            .add({
-                targets: ambitionText.current,
-                opacity: [0, 1],
-                translateX: ['-50%', 0],
-                duration: 500,
-            }, '-=300')
-            .add({
-                targets: empowermentSlider.current,
-                translateX: [0, '100%'],
-                duration: 500,
-                opacity: [0, 1],
-            }, '-=250')
-            .add({
-                targets: empowermentText.current,
-                opacity: [0, 1],
-                translateX: [-60, 0],
-                duration: 500,
-            }, '-=300')
-            .add({
-                targets: trustworthinessSlider.current,
-                translateX: [0, '100%'],
-                duration: 500,
-                opacity: [0, 1],
-            }, '-=250')
-            .add({
-                targets: trustworthinessText.current,
-                opacity: [0, 1],
-                translateX: [-60, 0],
-                duration: 500,
-            }, '-=300')
-            .add({
-                targets: hiddenValuesText.current,
-                opacity: [0, 1],
-                translateX: ['50%', 0],
-                duration: 1000,
-            }, '-=500')
-            .add({
-                targets: hiddenR.current,
-                opacity: [0, 1],
-                translateX: ['50%', 0],
-                duration: 1000,
-            }, '-=1000');
-    }, [currentSection]);
+            requestAnimationFrame(() => {
+                // Entry Animations
+                const timeline = anime.timeline({
+                    easing: "easeOutQuart",
+                });
+
+                timeline
+                    .add({
+                        targets: redBracket.current,
+                        translateX: ["-100vw", "0"],
+                        opacity: [0, 1],
+                        duration: 1000,
+                        delay: 200,
+                    })
+                    .add(
+                        {
+                            targets: topText.current,
+                            opacity: [0, 1],
+                            translateX: ["-60px", "0px"],
+                            duration: 800,
+                        },
+                        "-=600"
+                    )
+                    .add(
+                        {
+                            targets: whiteBracket.current,
+                            translateX: ["100vw", "0"],
+                            opacity: [0, 1],
+                            duration: 800,
+                        },
+                        "-=600"
+                    )
+                    .add(
+                        {
+                            targets: [ambitionSlider.current, empowermentSlider.current, trustworthinessSlider.current],
+                            translateX: ["0%", "100%"],
+                            opacity: [0, 1],
+                            duration: 500,
+                            delay: anime.stagger(150),
+                        },
+                        "-=400"
+                    )
+                    .add(
+                        {
+                            targets: [ambitionText.current, empowermentText.current, trustworthinessText.current],
+                            opacity: [0, 1],
+                            translateX: ["-60px", "0px"],
+                            duration: 500,
+                            delay: anime.stagger(150),
+                        },
+                        "-=600"
+                    );
+            });
+        } else if (animationsActive.current && currentSection !== 4) {
+            // Exit Animations
+            animationsActive.current = false;
+
+            requestAnimationFrame(() => {
+                // Exit animations
+
+                // Animate all texts together
+                anime({
+                    targets: [ambitionText.current, empowermentText.current, trustworthinessText.current],
+                    opacity: [1, 0],
+                    translateX: ["0px", "-60px"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        [ambitionText.current, empowermentText.current, trustworthinessText.current].forEach((element) => {
+                            if (element) {
+                                element.style.opacity = "0";
+                                element.style.transform = "translateX(-60px)";
+                            }
+                        });
+                    },
+                });
+
+                // Animate all sliders together
+                anime({
+                    targets: [ambitionSlider.current, empowermentSlider.current, trustworthinessSlider.current],
+                    opacity: [1, 0],
+                    translateX: ["100%", "0%"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        [ambitionSlider.current, empowermentSlider.current, trustworthinessSlider.current].forEach((element) => {
+                            if (element) {
+                                element.style.opacity = "0";
+                                element.style.transform = "translateX(0%)";
+                            }
+                        });
+                    },
+                });
+
+                // Animate redBracket
+                anime({
+                    targets: redBracket.current,
+                    opacity: [1, 0],
+                    translateX: ["0", "-100vw"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (redBracket.current) {
+                            redBracket.current.style.opacity = "0";
+                            redBracket.current.style.transform = "translateX(-100vw)";
+                        }
+                    },
+                });
+
+                // Animate topText
+                anime({
+                    targets: topText.current,
+                    opacity: [1, 0],
+                    translateX: ["0px", "-60px"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (topText.current) {
+                            topText.current.style.opacity = "0";
+                            topText.current.style.transform = "translateX(-60px)";
+                        }
+                    },
+                });
+
+                // Animate whiteBracket
+                anime({
+                    targets: whiteBracket.current,
+                    opacity: [1, 0],
+                    translateX: ["0", "100vw"],
+                    duration: 500,
+                    easing: "easeInOutSine",
+                    complete: () => {
+                        if (whiteBracket.current) {
+                            whiteBracket.current.style.opacity = "0";
+                            whiteBracket.current.style.transform = "translateX(100vw)";
+                        }
+                    },
+                });
+            });
+        }
+
+        // Cleanup function to remove animations
+        return () => {
+            anime.remove([
+                redBracket.current,
+                topText.current,
+                whiteBracket.current,
+                ambitionText.current,
+                ambitionSlider.current,
+                empowermentText.current,
+                empowermentSlider.current,
+                trustworthinessText.current,
+                trustworthinessSlider.current,
+            ]);
+        };
+    }, [currentSection, animationsEnabled, isScrolling]);
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full">
-            <div className="relative flex flex-row h-[100%] w-full">
+            {/* Top Section */}
+            <div className="relative flex flex-row h-[50%] w-full">
+                {/* Red Bracket and Top Text */}
                 <div className="z-10 absolute top-0 left-0 w-full h-full">
                     <div className="relative w-full h-full flex flex-row justify-between py-1 md:py-2 lg:py-4 xl:py-5 px-4 md:px-6 lg:px-8 xl:px-10">
                         <div
                             ref={topText}
-                            className="flex flex-col justify-center gap-5 text-center"
+                            className="flex flex-col justify-center gap-5 text-center opacity-0"
                         >
-                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-extra-wider xl:tracking-extra-widest text-stroke-1 text-stroke-white text-transparent">
+                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-wide xl:tracking-widest text-stroke-1 text-stroke-white text-transparent">
                                 AFTER 10 YEARS OF
                             </p>
-                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-extra-wider xl:tracking-extra-widest text-stroke-1 text-stroke-white text-transparent">
+                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-wide xl:tracking-widest text-stroke-1 text-stroke-white text-transparent">
                                 GROWING ONLY BY RECOMMENDATION
                             </p>
-                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-extra-wider xl:tracking-extra-widest text-stroke-1 text-stroke-white text-transparent">
+                            <p className="text-[12px] md:text-[24px] lg:text-[32px] xl:text-[40px] md:tracking-wide xl:tracking-widest text-stroke-1 text-stroke-white text-transparent">
                                 WE CHOOSE TO BE DISCOVERED
                             </p>
                         </div>
                         <div
                             ref={redBracket}
+                            className="opacity-0"
                         >
                             <img
                                 src={redOutlineBracket}
-                                alt="White bracket"
+                                alt="Red bracket"
                                 className="transform -scale-x-100 h-full"
+                                loading="lazy"
                             />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="relative flex flex-row h-full w-full">
+
+            {/* Bottom Section */}
+            <div className="relative flex flex-row h-[50%] w-full">
+                {/* White Bracket and Values */}
                 <div className="z-10 absolute top-0 left-0 w-full h-full">
                     <div className="relative w-full h-full flex flex-row justify-between lg:gap-10 py-1 md:py-2 lg:py-4 xl:py-5 px-4 md:px-6 lg:px-8 xl:px-10">
-                        <div ref={whiteBracket}>
+                        <div
+                            ref={whiteBracket}
+                            className="opacity-0"
+                        >
                             <img
                                 src={whiteOutlineBracket}
                                 alt="White bracket"
                                 className="h-full"
+                                loading="lazy"
                             />
                         </div>
                         <div className="flex flex-col justify-center gap-10 text-start">
+                            {/* Ambition */}
                             <div className="flex flex-row items-center gap-1">
-                                <p ref={ambitionText} className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] md:tracking-extra-wider xl:tracking-extra-widest font-bold tracking-extra-wide mt-1 lg:mt-3">
+                                <p
+                                    ref={ambitionText}
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                >
                                     AMBITION
                                 </p>
-                                <p ref={ambitionSlider} className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent">
+                                <p
+                                    ref={ambitionSlider}
+                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
+                                >
                                     ]
                                 </p>
                             </div>
+                            {/* Empowerment */}
                             <div className="flex flex-row items-center gap-1">
-                                <p ref={empowermentText} className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-extra-wide md:tracking-extra-wider xl:tracking-extra-widest font-bold mt-1 lg:mt-3">
+                                <p
+                                    ref={empowermentText}
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                >
                                     EMPOWERMENT
                                 </p>
-                                <p ref={empowermentSlider} className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent">
+                                <p
+                                    ref={empowermentSlider}
+                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
+                                >
                                     ]
                                 </p>
                             </div>
+                            {/* Trustworthiness */}
                             <div className="flex flex-row items-center gap-1">
-                                <p ref={trustworthinessText} className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-extra-wide md:tracking-extra-wider xl:tracking-extra-widest font-bold mt-1 lg:mt-3">
+                                <p
+                                    ref={trustworthinessText}
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                >
                                     TRUSTWORTHINESS
                                 </p>
-                                <p ref={trustworthinessSlider} className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent">
+                                <p
+                                    ref={trustworthinessSlider}
+                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
+                                    style={{ transform: "translateX(0%)" }}
+                                >
                                     ]
                                 </p>
                             </div>

@@ -1,11 +1,11 @@
 import { useSectionStore } from "@store/useSectionStore";
 import anime from "animejs";
 import { useEffect, useRef } from "react";
+import useLazyBackgroundImage from "@hooks/useLazyBackgroundImage";
 
 const Manifest = () => {
     // Store
-    const currentSection = useSectionStore((state) => state.currentSection);
-    const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
+    const { currentSection, animationsEnabled, isScrolling } = useSectionStore();
 
     // Refs
     const topLaser = useRef<HTMLDivElement>(null);
@@ -13,89 +13,195 @@ const Manifest = () => {
     const bottomLaser = useRef<HTMLDivElement>(null);
     const bottomText = useRef<HTMLDivElement>(null);
     const manifestText = useRef<HTMLDivElement>(null);
+    const imageElement = useRef<HTMLDivElement>(null);
+    const animationsActive = useRef(false);
+
+    // Hooks
+    const backgroundImage = useLazyBackgroundImage(
+        imageElement,
+        "/images/bg/manifest.jpg"
+    );
 
     // Animation speed coefficient
-    const animationSpeed = 1; // Adjust this value to speed up (>1) or slow down (<1) the animations
+    const animationSpeed = 1;
 
     // Effects
     useEffect(() => {
-        if (currentSection === 3) {
-            if (!animationsEnabled) return;
+        if (currentSection === 3 && animationsEnabled && !isScrolling) {
+            if (animationsActive.current) return;
+            animationsActive.current = true;
 
-            const timeline = anime.timeline({
-                easing: "easeOutExpo",
+            requestAnimationFrame(() => {
+                const timeline = anime.timeline({
+                    easing: "easeOutExpo",
+                });
+
+                timeline.add(
+                    {
+                        targets: imageElement.current,
+                        opacity: [0, 1],
+                        duration: 1000 * animationSpeed,
+                        easing: "linear",
+                    }
+                )
+
+                // Top Laser Animation using scaleX
+                timeline.add(
+                    {
+                        targets: topLaser.current,
+                        scaleX: [0, 1],
+                        duration: 500 * animationSpeed,
+                    },
+                );
+
+                // Top Text Animation
+                timeline.add(
+                    {
+                        targets: topText.current,
+                        opacity: [0, 1],
+                        translateY: ["0%", "-100%"],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=250"
+                );
+
+                // Manifest Text Animation
+                timeline.add(
+                    {
+                        targets: manifestText.current,
+                        opacity: [0, 1],
+                        translateX: ["300%", "0%"],
+                        duration: 500 * animationSpeed,
+                    },
+                );
+
+                // Bottom Laser Animation using scaleX
+                timeline.add(
+                    {
+                        targets: bottomLaser.current,
+                        scaleX: [0, 1],
+                        duration: 500 * animationSpeed,
+                    },
+                    '-=500'
+                );
+
+                // Bottom Text Animation
+                timeline.add(
+                    {
+                        targets: bottomText.current,
+                        opacity: [0, 1],
+                        translateY: ["0%", "100%"],
+                        duration: 500 * animationSpeed,
+                    },
+                );
             });
+        } else if (animationsActive.current) {
+            // Exit Animations
+            animationsActive.current = false;
 
-            // Top Laser Animation
-            timeline.add(
-                {
-                    targets: topLaser.current,
-                    width: ["0%", "100%"],
-                    duration: 2000 * animationSpeed,
-                },
-                400 * animationSpeed // Delay
-            );
+            requestAnimationFrame(() => {
+                const timeline = anime.timeline({
+                    easing: "easeOutExpo",
+                });
 
-            // Top Text Animation
-            timeline.add(
-                {
-                    targets: topText.current,
-                    opacity: [0, 1],
-                    translateY: ["0%", "-100%"],
-                    duration: 1000 * animationSpeed,
-                },
-                900 * animationSpeed // Delay
-            );
+                // Reverse animations
+                // Top Laser Exit Animation
+                timeline.add(
+                    {
+                        targets: topLaser.current,
+                        scaleX: [1, 0],
+                        duration: 500 * animationSpeed,
+                    },
+                );
 
-            // Manifest Text Animation
-            timeline.add(
-                {
-                    targets: manifestText.current,
-                    opacity: [0, 1],
-                    translateX: ["300%", "0%"],
-                    duration: 1500 * animationSpeed,
-                },
-                1400 * animationSpeed // Delay
-            );
+                // Top Text Exit Animation
+                timeline.add(
+                    {
+                        targets: topText.current,
+                        opacity: [1, 0],
+                        translateY: ["-100%", "0%"],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=500"
+                );
 
-            // Bottom Laser Animation
-            timeline.add(
-                {
-                    targets: bottomLaser.current,
-                    width: ["0%", "100%"],
-                    duration: 2000 * animationSpeed,
-                },
-                1400 * animationSpeed // Delay
-            );
+                // Manifest Text Exit Animation
+                timeline.add(
+                    {
+                        targets: manifestText.current,
+                        opacity: [1, 0],
+                        translateX: ["0%", "300%"],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=500"
+                );
 
-            // Bottom Text Animation
-            timeline.add(
-                {
-                    targets: bottomText.current,
-                    opacity: [0, 1],
-                    translateY: ["0%", "100%"],
-                    duration: 1000 * animationSpeed,
-                },
-                2150 * animationSpeed // Delay
-            );
+                // Bottom Laser Exit Animation
+                timeline.add(
+                    {
+                        targets: bottomLaser.current,
+                        scaleX: [1, 0],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=500"
+                );
+
+                // Bottom Text Exit Animation
+                timeline.add(
+                    {
+                        targets: bottomText.current,
+                        opacity: [1, 0],
+                        translateY: ["100%", "0%"],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=500"
+                );
+
+                // Image Exit Animation
+                timeline.add(
+                    {
+                        targets: imageElement.current,
+                        opacity: [1, 0],
+                        duration: 500 * animationSpeed,
+                    },
+                    "-=500"
+                );
+            });
         }
-    }, [currentSection, animationSpeed]);
+
+        // Clean up animations when dependencies change or component unmounts
+        return () => {
+            anime.remove([
+                topLaser.current,
+                topText.current,
+                bottomLaser.current,
+                bottomText.current,
+                manifestText.current,
+            ]);
+        };
+    }, [currentSection, animationsEnabled, isScrolling]);
 
     return (
         <div className="h-full w-full flex flex-col items-center justify-center">
             <div
+                ref={imageElement}
                 className="z-20 h-[85%] w-full"
                 style={{
-                    backgroundImage: 'url(/images/bg/manifest.jpg)',
+                    backgroundImage: `url(${backgroundImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    opacity: 0,
                 }}
             >
-                <div className="relative w-full h-full">
+                <div className="z-20 relative w-full h-full">
                     {/* Top Text */}
                     <div
                         ref={topText}
-                        className={`z-0 absolute top-[6px] md:top-[8px] xl:top-[12px] translate-y-[-100%] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md ${!animationsEnabled ? 'opacity-100' : 'opacity-0'}`}
+                        className="z-0 absolute top-[6px] md:top-[8px] xl:top-[12px] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md"
+                        style={{
+                            opacity: 0,
+                            transform: 'translateY(0%)',
+                        }}
                     >
                         <p>OUR</p>
                     </div>
@@ -104,6 +210,10 @@ const Manifest = () => {
                     <div
                         ref={topLaser}
                         className="absolute top-0 left-0 w-full h-5 bg-white"
+                        style={{
+                            transform: 'scaleX(0)',
+                            transformOrigin: 'left',
+                        }}
                     >
                         {/* Top Laser */}
                     </div>
@@ -111,7 +221,11 @@ const Manifest = () => {
                     {/* Manifest Text */}
                     <div
                         ref={manifestText}
-                        className={`absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-bold h-[90%] text-[60px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 text-shadow-lg ${!animationsEnabled ? 'opacity-100' : 'opacity-0'}`}
+                        className="absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-bold h-[90%] text-[60px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 text-shadow-lg"
+                        style={{
+                            opacity: 0,
+                            transform: 'translateX(300%)',
+                        }}
                     >
                         {"MANIFEST".split("").map((letter, index) => (
                             <div key={index}>{letter}</div>
@@ -122,6 +236,10 @@ const Manifest = () => {
                     <div
                         ref={bottomLaser}
                         className="absolute bottom-0 left-0 w-full h-5 bg-white"
+                        style={{
+                            transform: 'scaleX(0)',
+                            transformOrigin: 'right',
+                        }}
                     >
                         {/* Bottom Laser */}
                     </div>
@@ -129,7 +247,11 @@ const Manifest = () => {
                     {/* Bottom Text */}
                     <div
                         ref={bottomText}
-                        className={`absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] translate-y-[100%] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md ${!animationsEnabled ? 'opacity-100' : 'opacity-0'}`}
+                        className="absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md"
+                        style={{
+                            opacity: 0,
+                            transform: 'translateY(0%)',
+                        }}
                     >
                         <p>IS FINALLY HERE</p>
                     </div>
