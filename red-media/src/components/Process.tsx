@@ -88,7 +88,7 @@ const Process = () => {
             </div>
 
             {/* MORE Button */}
-            <div className="absolute z-10 top-0 right-[15%] translate-x-[50%] translate-y-[25%]">
+            <div className="absolute z-10 top-0 right-[10%] translate-x-[50%] translate-y-[25%]">
                 <button
                     className="bg-white rounded-2xl text-customRed border text-sm lg:text-lg lg:rounded-3xl px-1 py-1 lg:px-4 lg:py-2 text-center cursor-pointer hover:bg-customRed hover:text-white transition-colors duration-300"
                     onClick={() => console.log('MORE button clicked')}

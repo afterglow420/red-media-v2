@@ -136,7 +136,7 @@ const Resources = () => {
 
             {/* Header and Button */}
             <div className="absolute z-10 top-0 left-1/2 transform -translate-x-1/2 bg-[#212121] h-10 flex items-center justify-center px-5 translate-y-[5%] lg:translate-y-[25%] w-3/4">
-                <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed text-transparent font-bold text-[24px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start lg:tracking-extra-wider">
+                <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[24px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-start lg:tracking-extra-wider">
                     Resources
                 </p>
             </div>
@@ -167,27 +167,33 @@ const Resources = () => {
                 ></div>
                 {/* Business Text and Brackets */}
                 <div className="flex flex-col items-center justify-center w-full h-1/5">
-                    <div className="flex flex-row items-center justify-center">
+                    <div className="flex flex-row items-center justify-center gap-2">
                         <p
                             ref={leftBracketRef}
-                            className="text-transparent text-stroke-2 text-stroke-customRed font-bold text-[80px] lg:text-[120px]"
                             style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
-                            [
+                            <img
+                                src="/images/brackets/red-outline-bracket.png"
+                                alt="Red Outline Bracket"
+                                className="h-20 w-auto"
+                            />
                         </p>
                         <p
                             ref={businessTextRef}
-                            className="mt-5 text-white text-[20px] lg:text-[50px] max-lg:mb-2"
+                            className="text-white text-[20px] lg:text-[50px]"
                             style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
                             {animationsEnabled ? '' : businessText}
                         </p>
                         <p
                             ref={rightBracketRef}
-                            className="text-transparent text-stroke-2 text-stroke-customRed font-bold text-[80px] lg:text-[120px]"
                             style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
-                            ]
+                            <img
+                                src="/images/brackets/red-outline-bracket.png"
+                                alt="Red Outline Bracket"
+                                className="h-20 w-auto transform -scale-x-100"
+                            />
                         </p>
                     </div>
                     <div

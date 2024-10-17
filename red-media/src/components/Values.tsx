@@ -236,17 +236,18 @@ const Values = () => {
                             <div className="flex flex-row items-center gap-1">
                                 <p
                                     ref={ambitionText}
-                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-[900] opacity-100"
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-[900] opacity-0"
                                 >
                                     AMBITION
                                 </p>
                                 <div
                                     ref={ambitionSlider}
+                                    className="opacity-0"
                                 >
                                     <img
                                         src="/images/brackets/white-outline-bracket.png"
                                         alt="White outline bracket"
-                                        className="w-auto transform -scale-x-100 h-10" // Adjust based on above
+                                        className="h-10 w-auto transform -scale-x-100" // Adjust based on above
                                         loading="lazy"
                                     />
                                 </div>
@@ -261,6 +262,7 @@ const Values = () => {
                                 </p>
                                 <div
                                     ref={empowermentSlider}
+                                    className="opacity-0"
                                 >
                                     <img
                                         src="/images/brackets/white-outline-bracket.png"
@@ -280,6 +282,7 @@ const Values = () => {
                                 </p>
                                 <div
                                     ref={trustworthinessSlider}
+                                    className="opacity-0"
                                 >
                                     <img
                                         src="/images/brackets/white-outline-bracket.png"
