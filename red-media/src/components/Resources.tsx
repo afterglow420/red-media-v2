@@ -5,9 +5,7 @@ import { useEffect, useRef } from "react";
 
 const Resources = () => {
     // Store
-    const currentSection = useSectionStore((state) => state.currentSection);
-    const setCurrentSection = useSectionStore((state) => state.setCurrentSection);
-    const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
+    const { currentSection, animationsEnabled, isScrolling, setCurrentSection } = useSectionStore();
 
     // Refs
     const imageTopRef = useRef<HTMLDivElement>(null);
@@ -17,87 +15,117 @@ const Resources = () => {
     const businessTextRef = useRef<HTMLDivElement>(null);
     const workTogetherPillRef = useRef<HTMLDivElement>(null);
 
+    // Ref to track if animations are active
+    const animationsActive = useRef(false);
+
+    // Business Text for Typewriter Effect
+    const businessText = "LET'S TALK BUSINESS";
+
     // Handlers and Functions
     const handleBackToTop = () => {
         setCurrentSection(1);
     };
 
-    // Effects
+    // Entry and Exit Animations
     useEffect(() => {
-        if (currentSection !== 7) return;
+        if (currentSection === 7 && animationsEnabled && !isScrolling) {
+            if (!animationsActive.current) {
+                animationsActive.current = true;
 
-        const businessText = "LET'S TALK BUSINESS";
+                // Entry animations
+                anime.timeline({ loop: false })
+                    .add({
+                        targets: imageTopRef.current,
+                        opacity: [0, 1],
+                        easing: 'linear',
+                        duration: 500,
+                        delay: 200,
+                    })
+                    .add(
+                        {
+                            targets: imageBottomRef.current,
+                            opacity: [0, 1],
+                            easing: 'linear',
+                            duration: 500,
+                        },
+                        '-=200' // Starts 200ms before the previous animation ends
+                    )
+                    .add({
+                        targets: [leftBracketRef.current, rightBracketRef.current],
+                        opacity: [0, 1],
+                        easing: 'linear',
+                        duration: 500,
+                    })
+                    .add({
+                        targets: businessTextRef.current,
+                        // Typewriter effect
+                        opacity: [1, 1],
+                        duration: 1000,
+                        easing: 'linear',
+                        update: function (anim) {
+                            const progress = Math.round((anim.progress / 100) * businessText.length);
+                            if (businessTextRef.current) {
+                                businessTextRef.current.innerHTML = businessText.slice(0, progress);
+                            }
+                        },
+                    })
+                    .add({
+                        targets: workTogetherPillRef.current,
+                        opacity: [0, 1],
+                        easing: 'linear',
+                        duration: 500,
+                    });
+            }
+        } else if (animationsActive.current && isScrolling) {
+            animationsActive.current = false;
 
-        if (businessTextRef.current) {
-            businessTextRef.current.innerHTML = ''; // Start with an empty string
-        }
-
-        if (!animationsEnabled) {
-            // Set elements to their final state immediately
-            if (imageTopRef.current) {
-                anime.set(imageTopRef.current, { opacity: 1 });
-            }
-            if (imageBottomRef.current) {
-                anime.set(imageBottomRef.current, { opacity: 1 });
-            }
-            if (leftBracketRef.current) {
-                anime.set(leftBracketRef.current, { opacity: 1 });
-            }
-            if (rightBracketRef.current) {
-                anime.set(rightBracketRef.current, { opacity: 1 });
-            }
-            if (businessTextRef.current) {
-                businessTextRef.current.innerHTML = businessText;
-            }
-            if (workTogetherPillRef.current) {
-                anime.set(workTogetherPillRef.current, { opacity: 1 });
-            }
-            return;
-        }
-
-        // Animation code
-        anime
-            .timeline({ loop: false })
-            .add({
-                targets: imageTopRef.current,
-                opacity: [0, 1],
-                easing: 'linear',
-                duration: 500,
-                delay: 200,
-            })
-            .add(
-                {
-                    targets: imageBottomRef.current,
-                    opacity: [0, 1],
+            // Exit animations
+            anime.timeline({ loop: false })
+                .add({
+                    targets: [businessTextRef.current, workTogetherPillRef.current],
+                    opacity: [1, 0],
                     easing: 'linear',
-                    duration: 500,
-                },
-                '-=200' // Starts 200ms before the previous animation ends
-            )
-            .add({
-                targets: [leftBracketRef.current, rightBracketRef.current],
-                opacity: [0, 1],
-                easing: 'linear',
-                duration: 500,
-            })
-            .add({
-                targets: businessTextRef.current,
-                update: function (anim) {
-                    const progress = Math.round((anim.progress / 100) * businessText.length);
-                    if (businessTextRef.current) {
-                        businessTextRef.current.innerHTML = businessText.slice(0, progress);
-                    }
-                },
-                easing: 'linear',
-                duration: 100 * businessText.length,
-            })
-            .add({
-                targets: workTogetherPillRef.current,
-                opacity: [0, 1],
-                easing: 'linear',
-                duration: 500,
-            });
-    }, [currentSection, animationsEnabled]);
+                    duration: 250,
+                    complete: () => {
+                        if (businessTextRef.current) {
+                            businessTextRef.current.innerHTML = '';
+                        }
+                    },
+                }, 0) // Start at the beginning
+                .add({
+                    targets: [leftBracketRef.current, rightBracketRef.current],
+                    opacity: [1, 0],
+                    easing: 'linear',
+                    duration: 250,
+                }, 0) // Start at the beginning
+                .add({
+                    targets: imageBottomRef.current,
+                    opacity: [1, 0],
+                    easing: 'linear',
+                    duration: 250,
+                }, 0) // Start at the beginning
+                .add({
+                    targets: imageTopRef.current,
+                    opacity: [1, 0],
+                    easing: 'linear',
+                    duration: 250,
+                }, 0); // Start at the beginning
+        }
+
+        return () => {
+            // Cleanup any running animations on unmount
+            anime.remove([
+                imageTopRef.current,
+                imageBottomRef.current,
+                leftBracketRef.current,
+                rightBracketRef.current,
+                businessTextRef.current,
+                workTogetherPillRef.current,
+            ]);
+        };
+
+        // We remove the cleanup function here
+    }, [currentSection, animationsEnabled, isScrolling]);
 
     return (
         <div className="relative flex flex-col justify-center items-center h-full w-full py-5 lg:py-8">
@@ -112,7 +140,7 @@ const Resources = () => {
                     Resources
                 </p>
             </div>
-            <div className="absolute z-10 top-0 right-[10%] transform translate-x-1/2 translate-y-[25%]">
+            <div className="absolute z-10 top-0 right-[20%] lg:right-[15%] transform translate-x-1/2 translate-y-[25%]">
                 <button
                     className="bg-white rounded-2xl text-customRed border border-customRed text-sm lg:text-lg lg:rounded-3xl px-2 py-1 lg:px-4 lg:py-2 text-center cursor-pointer hover:bg-customRed hover:text-white transition-colors duration-300"
                     onClick={() => console.log('MORE button clicked')} // Replace with your desired action
@@ -125,16 +153,19 @@ const Resources = () => {
 
             {/* Main Content with White Border */}
             <div className="relative border-4 border-white w-full h-full flex flex-col items-center justify-center bg-transparent p-5 gap-3 pt-7 lg:pt-10">
+                {/* Image Top */}
                 <div
                     ref={imageTopRef}
                     className="flex flex-col items-center justify-center border-2 border-white w-full h-2/5 bg-[gray]"
                     style={{ opacity: animationsEnabled ? 0 : 1 }}
                 ></div>
+                {/* Image Bottom */}
                 <div
                     ref={imageBottomRef}
                     className="flex flex-col items-center justify-center border-2 border-white w-full h-2/5 bg-[gray]"
                     style={{ opacity: animationsEnabled ? 0 : 1 }}
                 ></div>
+                {/* Business Text and Brackets */}
                 <div className="flex flex-col items-center justify-center w-full h-1/5">
                     <div className="flex flex-row items-center justify-center">
                         <p
@@ -147,8 +178,9 @@ const Resources = () => {
                         <p
                             ref={businessTextRef}
                             className="mt-5 text-white text-[20px] lg:text-[50px] max-lg:mb-2"
+                            style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
-                            {animationsEnabled ? '' : "LET'S TALK BUSINESS"}
+                            {animationsEnabled ? '' : businessText}
                         </p>
                         <p
                             ref={rightBracketRef}
@@ -160,13 +192,14 @@ const Resources = () => {
                     </div>
                     <div
                         ref={workTogetherPillRef}
+                        className="mt-0"
                         style={{ opacity: animationsEnabled ? 0 : 1 }}
                     >
                         <button
                             className="bg-customRed rounded-2xl text-white text-sm lg:text-lg lg:rounded-3xl px-2 py-1 lg:px-4 lg:py-2 text-center cursor-pointer hover:bg-white hover:text-customRed transition-colors duration-300"
                             onClick={() => console.log("LET'S TALK BUSINESS button clicked")} // Replace with your desired action
                         >
-                            <p className="text-[12px] md:text-[16px] lg:text-[20px] xl:text-[24px] font-bold tracking-extra-wide">
+                            <p className="text-[14px] md:text-[16px] lg:text-[20px] xl:text-[24px] font-bold tracking-extra-wide">
                                 LET'S WORK TOGETHER
                             </p>
                         </button>
@@ -177,7 +210,7 @@ const Resources = () => {
             {/* Back to Top Button */}
             <button
                 onClick={handleBackToTop}
-                className="absolute bottom-4 left-4 z-30 bg-customRed text-white p-3 rounded-full shadow-lg hover:bg-white hover:text-customRed transition-colors duration-300"
+                className="absolute bottom-5 left-0 z-30 bg-customRed text-white p-3 rounded-full shadow-lg hover:bg-white hover:text-customRed transition-colors duration-300"
                 aria-label="Back to Top"
             >
                 <svg

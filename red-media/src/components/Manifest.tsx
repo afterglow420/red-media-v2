@@ -197,7 +197,7 @@ const Manifest = () => {
                     {/* Top Text */}
                     <div
                         ref={topText}
-                        className="z-0 absolute top-[6px] md:top-[8px] xl:top-[12px] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md"
+                        className="z-0 absolute top-[6px] md:top-[8px] xl:top-[12px] left-[5%] leading-none font-[900] text-[40px] tracking-wider md:text-[52px] xl:text-[80px]"
                         style={{
                             opacity: 0,
                             transform: 'translateY(0%)',
@@ -221,7 +221,7 @@ const Manifest = () => {
                     {/* Manifest Text */}
                     <div
                         ref={manifestText}
-                        className="absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-bold h-[90%] text-[60px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 text-shadow-lg"
+                        className="absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-[900] h-[90%] text-[64px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 tracking-tighter"
                         style={{
                             opacity: 0,
                             transform: 'translateX(300%)',
@@ -247,7 +247,7 @@ const Manifest = () => {
                     {/* Bottom Text */}
                     <div
                         ref={bottomText}
-                        className="absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] left-[5%] leading-none font-bold text-[32px] md:text-[52px] xl:text-[80px] text-shadow-md"
+                        className="absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] left-[5%] leading-none font-[900] text-[36px] md:text-[52px] xl:text-[80px]"
                         style={{
                             opacity: 0,
                             transform: 'translateY(0%)',

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import whiteBracketsLogo from "/images/logos/white-brackets-r.png";
 import useWindowSize from "@hooks/useWindowSize";
 import { useRepetitions } from "@hooks/useRepetitions";
-import { useBeamAnimation } from "@hooks/useBeamAnimation";
+// import { useBeamAnimation } from "@hooks/useBeamAnimation";
 import { useSectionStore } from "@store/useSectionStore";
 import anime from "animejs";
 
@@ -33,7 +33,7 @@ const WhoWeAre = () => {
     useEffect(() => {
         if (currentSection !== 5) return;
         if (!animationsEnabled) return;
-        
+
         // Set initial opacity to 0 if the element exists
         ['sectionTitleAboutUs', 'sectionTitleWhoWeAre', 'sectionTitleWhatWeDo'].forEach(ref => {
             if (eval(ref).current) {
@@ -125,12 +125,12 @@ const WhoWeAre = () => {
                 {/* Flag */}
                 <div ref={aboutUsTag} className="z-10 absolute top-0 left-0 w-2/3 h-[70%] bg-white" style={{ clipPath: 'polygon(0 0, 91% 0, 100% 100%, 0 100%)' }}>
                     <div className="absolute flex flex-col justify-center items-center w-[95%] h-[70%] top-[15%] text-end gap-2 text-black">
-                        <p className="pl-1 pr-3 xl:pr-9 xl:pl-12 font-bold xl:tracking-wide" style={{ fontSize: 'clamp(0.7rem, 2vw, 1.5rem)' }}>
+                        <p className="pl-1 pr-3 xl:pr-9 xl:pl-12 font-bold xl:tracking-wide" style={{ fontSize: 'clamp(0.6rem, 2vw, 1.5rem)' }}>
                             We are your one-stop solution for brand services, offering
                             end-to-end support from concept creation to execution including
                             logistics and transport.
                         </p>
-                        <p className="pl-1 pr-2 xl:pr-9 xl:pl-12 font-bold xl:tracking-wide" style={{ fontSize: 'clamp(0.7rem, 2vw, 1.5rem)' }}>
+                        <p className="pl-1 pr-2 xl:pr-9 xl:pl-12 font-bold xl:tracking-wide" style={{ fontSize: 'clamp(0.6rem, 2vw, 1.5rem)' }}>
                             We envision a world where creativity knows no bounds
                             where brands are not just seen but felt and where every interaction
                             leaves a lasting impression.
@@ -154,22 +154,25 @@ const WhoWeAre = () => {
                         </button>
                     </div>
                 </div>
-                <div ref={sectionTitleAboutUs} className="absolute flex flex-row justify-center gap-2 xl:gap-5 items-center top-0 right-0 h-[30%] w-2/5 bg-[#212121]">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="w-7 md:w-12 lg:w-14 xl:w-16" />
-                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">ABOUT US</p>
+                {/* Section title */}
+                <div ref={sectionTitleAboutUs} className="absolute flex flex-row justify-center gap-1 xl:gap-5 items-center top-0 right-0 h-[30%] w-2/5 bg-[#212121]">
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
+                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">ABOUT US</p>
                 </div>
             </div>
             {/* Who we are */}
             <div className="relative flex flex-row items-center justify-center h-[30%] w-full bg-transparent">
+                {/* Flag */}
                 <div ref={whoWeAreTag} className="z-10 absolute top-0 right-0 w-2/3 h-[70%] bg-white" style={{ clipPath: 'polygon(100% 0, 9% 0, 0 100%, 100% 100%)' }}>
                     <div className="flex flex-col justify-center items-center absolute w-[95%] h-[70%] top-[15%] right-0 bg-transparent gap-2 text-start text-black">
-                        <p className="pl-1 pr-2 xl:pl-7 xl:pr-12 font-bold tracking-wide" style={{ fontSize: 'clamp(0.7rem, 2vw, 1.5rem)' }}>
+                        <p className="pl-1 pr-2 xl:pl-7 xl:pr-12 font-bold tracking-wide" style={{ fontSize: 'clamp(0.6rem, 2vw, 1.5rem)' }}>
                             The go-to partner for brands seeking comprehensive
                             and innovative branding solutions, giving the fact that we
                             can literally provide the full package of services.
                         </p>
                     </div>
                 </div>
+                {/* Bg image */}
                 <div ref={whoeWeAreImage} className="absolute h-[70%] w-full bottom-0 left-0 bg-transparent">
                     <div className="absolute w-1/3 h-3/5 top-0 left-0 flex flex-col items-center justify-center bg-transparent">
                         <button onClick={() => console.log('clicked')}>
@@ -186,21 +189,23 @@ const WhoWeAre = () => {
                         </button>
                     </div>
                 </div>
-                <div ref={sectionTitleWhoWeAre} className="absolute flex flex-row justify-center items-center gap-2 top-0 left-0 h-[30%] w-2/5 bg-[#212121]">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="w-7 md:w-12 lg:w-14 xl:w-16" />
-                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHO WE ARE</p>
+                {/* Section title */}
+                <div ref={sectionTitleWhoWeAre} className="absolute flex flex-row justify-center md:items-center gap-1 xl:gap-5 top-0 left-0 h-[30%] w-2/5 bg-[#212121] py-1">
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
+                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHO WE ARE</p>
                     <div className="flex md:hidden flex-col gap-1 leading-none">
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHO</p>
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-end">ARE</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHO</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-end">ARE</p>
                     </div>
                 </div>
             </div>
+            {/* What we do */}
             <div className="relative flex flex-row items-center justify-center h-[30%] w-full bg-transparent">
                 {/* Flag */}
                 <div ref={whatWeDoTag} className="z-10 absolute top-0 left-0 w-2/3 h-[70%] bg-white" style={{ clipPath: 'polygon(0 0, 91% 0, 100% 100%, 0 100%)' }}>
                     <div className="absolute flex flex-col justify-center items-center w-[95%] h-[70%] top-[15%] text-end gap-2 text-black">
-                        <p className="pl-1 pr-2 xl:pr-9 xl:pl-12 font-bold tracking-wide" style={{ fontSize: 'clamp(0.7rem, 2vw, 1.5rem)' }}>
+                        <p className="pl-1 pr-2 xl:pr-9 xl:pl-12 font-bold tracking-wide" style={{ fontSize: 'clamp(0.6rem, 2vw, 1.5rem)' }}>
                             We ensure your vision comes to life with precision and
                             impact. We have the resources to prioritise your process,
                             ensure completion on deadline and overcome any obstacles
@@ -225,15 +230,14 @@ const WhoWeAre = () => {
                         </button>
                     </div>
                 </div>
-                <div ref={sectionTitleWhatWeDo} className="absolute flex flex-row justify-center gap-2 items-center top-0 right-0 h-[30%] w-2/5 bg-[#212121]">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="w-7 md:w-12 lg:w-14 xl:w-16" />
-                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed text-transparent max-md:text-customRed font-bold text-[20px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHAT WE DO</p>
+                {/* Section title */}
+                <div ref={sectionTitleWhatWeDo} className="absolute flex flex-row justify-center md:items-center gap-1 xl:gap-5 top-0 right-0 h-[30%] w-2/5 bg-[#212121] py-1">
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
+                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed text-transparent max-md:text-customRed font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHAT WE DO</p>
                     <div className="flex md:hidden flex-col gap-1 leading-none">
-                        <div className="flex md:hidden flex-col gap-1 leading-none">
-                            <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHAT</p>
-                            <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
-                            <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[20px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-end">DO</p>
-                        </div>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHAT</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-end">DO</p>
                     </div>
                 </div>
             </div>

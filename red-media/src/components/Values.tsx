@@ -223,10 +223,7 @@ const Values = () => {
                 {/* White Bracket and Values */}
                 <div className="z-10 absolute top-0 left-0 w-full h-full">
                     <div className="relative w-full h-full flex flex-row justify-between lg:gap-10 py-1 md:py-2 lg:py-4 xl:py-5 px-4 md:px-6 lg:px-8 xl:px-10">
-                        <div
-                            ref={whiteBracket}
-                            className="opacity-0"
-                        >
+                        <div ref={whiteBracket} className="opacity-0">
                             <img
                                 src={whiteOutlineBracket}
                                 alt="White bracket"
@@ -239,52 +236,64 @@ const Values = () => {
                             <div className="flex flex-row items-center gap-1">
                                 <p
                                     ref={ambitionText}
-                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-[900] opacity-100"
                                 >
                                     AMBITION
                                 </p>
-                                <p
+                                <div
                                     ref={ambitionSlider}
-                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
                                 >
-                                    ]
-                                </p>
+                                    <img
+                                        src="/images/brackets/white-outline-bracket.png"
+                                        alt="White outline bracket"
+                                        className="w-auto transform -scale-x-100 h-10" // Adjust based on above
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
                             {/* Empowerment */}
                             <div className="flex flex-row items-center gap-1">
                                 <p
                                     ref={empowermentText}
-                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-[900] opacity-0"
                                 >
                                     EMPOWERMENT
                                 </p>
-                                <p
+                                <div
                                     ref={empowermentSlider}
-                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
                                 >
-                                    ]
-                                </p>
+                                    <img
+                                        src="/images/brackets/white-outline-bracket.png"
+                                        alt="White outline bracket"
+                                        className="h-10 w-auto transform -scale-x-100" // Adjust based on above
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
                             {/* Trustworthiness */}
                             <div className="flex flex-row items-center gap-1">
                                 <p
                                     ref={trustworthinessText}
-                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-bold mt-1 lg:mt-3 opacity-0"
+                                    className="text-[20px] md:text-[36px] lg:text-[48px] xl:text-[60px] 2xl:text-[80px] tracking-wide md:tracking-wider xl:tracking-widest font-[900] opacity-0"
                                 >
                                     TRUSTWORTHINESS
                                 </p>
-                                <p
+                                <div
                                     ref={trustworthinessSlider}
-                                    className="text-[36px] md:text-[48px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-bold text-stroke-1 text-stroke-white text-transparent opacity-0"
-                                    style={{ transform: "translateX(0%)" }}
                                 >
-                                    ]
-                                </p>
+                                    <img
+                                        src="/images/brackets/white-outline-bracket.png"
+                                        alt="White outline bracket"
+                                        className="h-10 w-auto transform -scale-x-100" // Adjust based on above
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };
