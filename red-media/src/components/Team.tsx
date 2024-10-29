@@ -68,7 +68,7 @@ const Team = () => {
 
             {/* Team Members */}
             <div className="flex flex-col items-center justify-center w-full h-full">
-                <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-10">
+                <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-10">
                     {membersRef.current.map((ref, index) => (
                         <div
                             ref={ref}
@@ -76,7 +76,7 @@ const Team = () => {
                             className="flex flex-col items-center gap-2 opacity-0"
                         >
                             {/* Card Image */}
-                            <div className="w-40 md:w-60 h-40 md:h-60 lg:w-80 lg:h-80 rounded-xl border-2 border-black justify-center items-center flex bg-[white] shadow-2xl text-black font-bold">
+                            <div className="w-36 md:w-60 h-36 md:h-60 lg:w-80 lg:h-80 rounded-xl border-2 border-black justify-center items-center flex bg-[white] shadow-2xl text-black font-bold">
                                 Image
                             </div>
                             {/* Name and Position */}

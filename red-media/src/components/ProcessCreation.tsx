@@ -62,18 +62,23 @@ const ProcessCreation = () => {
         setCurrentIndex(index);
     };
     return (
-        <>
+        <div className="relative h-full w-full flex flex-col">
             <Navigation />
-            <div className="flex flex-col items-center justify-center h-1/5 bg-white text-black">
-                <div className="flex flex-row items-center gap-2 lg:gap-5">
+            <div className="flex flex-col items-center justify-center h-[15%] bg-white text-black">
+                <div className="flex flex-row items-center gap-5 lg:gap-5">
                     <img
                         src="/images/logos/gray-brackets-r.png"
                         alt="Gray brackets logo"
                         className="w-12 h-12 lg:w-20 lg:h-20"
                     />
-                    <p className="text-transparent text-stroke-2 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
-                        PROCESS / SERVICES
-                    </p>
+                    <div className="flex flex-col items-center justify-center leading-none">
+                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
+                            PROCESS &
+                        </p>
+                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
+                            SERVICES
+                        </p>
+                    </div>
                 </div>
             </div>
             <div className="relative flex flex-row items-center justify-center h-4/5 bg-white text-black">
@@ -106,7 +111,7 @@ const ProcessCreation = () => {
                     </video>
 
                     {/* Text */}
-                    <div className={`flex flex-col tracking-widest items-start justify-center absolute translate-y-[100%] -bottom-4 left-0 h-auto p-1 w-full px-2 lg:px-10 bg-transparent text-center`}>
+                    <div className={`flex flex-col tracking-widest items-start justify-center absolute translate-y-[100%] -bottom-0 left-0 h-auto w-full px-1 lg:px-10 bg-transparent text-center`}>
                         <p className="text-black text-[12px] lg:text-[24px]">
                             {detailedInfo[currentIndex]}
                         </p>
@@ -156,7 +161,7 @@ const ProcessCreation = () => {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
@@ -174,7 +179,7 @@ const numberedBrackets: string[] = [
 const textTags: string[] = [
     "",
     "CREATION",
-    "COMPLETE ADVERTISING PRODUCTION",
+    "ADVERTISING PRODUCTION",
     "DEDICATED TRANSPORT",
     "STORAGE/LOGISTICS HANDLING",
     "MAINTENANCE/EVENTS SETUP",

@@ -1,7 +1,7 @@
 const DetailedResources = () => {
     return (
         <div className="relative flex flex-col justify-center items-center h-full w-full pt-5 lg:pt-8">
-            <div className="absolute z-10 top-0 left-1/2 transform -translate-x-1/2 bg-[#212121] h-10 flex items-center gap-2 lg:gap-5 justify-center px-5 translate-y-[5%] lg:translate-y-[25%] w-1/2 mt-1 lg:mt-2">
+            <div className="absolute z-10 top-0 left-1/2 transform -translate-x-1/2 bg-[#212121] h-10 flex items-center gap-2 lg:gap-5 justify-center px-5 translate-y-[5%] lg:translate-y-[25%] w-2/3 mt-1 lg:mt-2">
                 <img src="/images/logos/white-bracket-red-logo.png" alt="White brackets logo" className="h-8 lg:h-12 w-auto" />
                 <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed text-transparent font-bold text-[24px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start lg:tracking-extra-wider">
                     RESOURCES

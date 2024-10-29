@@ -92,23 +92,23 @@ const AboutUs = () => {
     }, [currentSection]);
 
     return (
-        <>
+        <div className="relative h-full w-full flex flex-col">
             <Navigation />
-            <div className="w-full h-[10%] bg-white"></div>
-            <div className="relative flex flex-col items-center justify-center h-[70%] bg-white w-full">
+            <div className="w-full h-[10%] bg-white hidden lg:block"></div>
+            <div className="relative flex flex-col items-center justify-center h-full bg-white w-full">
                 <div
                     ref={greetingAreaRef}
-                    className="relative flex flex-col items-center justify-center h-full w-full"
+                    className="relative flex flex-col items-center h-full w-full"
                     style={{
                         backgroundImage: "url('/images/bg/who-we-are-page-warehouse.jpg')",
                         backgroundSize: 'cover',
                     }}
                 >
                     {/* Meeting You Section */}
-                    <div className="flex flex-row items-center justify-center">
+                    <div className="flex flex-col w-full h-full">
                         <div
                             ref={meetingYouRef}
-                            className="absolute top-[-48px] left-0 w-3/5 lg:w-1/2 h-3/5 text-center flex flex-col justify-center items-center bg-customRed"
+                            className="relative w-4/5 lg:w-1/2 h-2/5 text-center flex flex-col justify-center items-center bg-customRed"
                             style={{
                                 clipPath: 'polygon(0 0, 88% 0, 100% 100%, 0 100%)',
                                 opacity: 0,
@@ -118,7 +118,7 @@ const AboutUs = () => {
                             <div className="flex flex-col gap-2 leading-tight tracking-wider md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white text-shadow-lg font-bold lg:text-[80px] md:text-[60px] text-[40px]">
                                 <p>GREAT</p>
                                 <p>MEETING</p>
-                                <p>YOU</p>
+                                <p>YOU!</p>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@ const AboutUs = () => {
                     {/* About Us Tag */}
                     <div
                         ref={aboutUsTagRef}
-                        className="absolute bottom-[5%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20"
+                        className="absolute bottom-[10%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20"
                         style={{
                             opacity: 0,
                             transform: 'translateX(100%)',
@@ -142,7 +142,7 @@ const AboutUs = () => {
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-customRed text-[36px] lg:text-[60px] tracking-extra-wide font-bold leading-none text-shadow-customRed-md">
+                                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">
                                         ABOUT US
                                     </p>
                                 </div>
@@ -245,7 +245,7 @@ const AboutUs = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -22,13 +22,13 @@ const WhoWeArePage = () => {
 
     return (
         <div className="text-white">
-            <div className="h-screen flex flex-col" id="section-1">
+            <div className={`h-dvh w-full`} id="section-1">
                 <AboutUs />
             </div>
-            <div className="h-screen flex flex-col" id="section-2">
+            <div className={`h-dvh w-full`} id="section-2">
                 <Team />
             </div>
-            <div className="h-screen flex flex-col" id="section-3">
+            <div className={`h-dvh w-full`} id="section-3">
                 <Clients />
             </div>
         </div>

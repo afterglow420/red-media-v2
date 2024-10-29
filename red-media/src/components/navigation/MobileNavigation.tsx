@@ -53,12 +53,12 @@ const MobileNavigation = () => {
     }, [isOpen, closeMenu]);
 
     return (
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="w-full h-full">
             {/* Mobile Navigation (Burger Menu) */}
             <div
                 className="relative lg:hidden h-16 flex flex-row px-2 items-center justify-between z-50"
                 style={{
-                    background: "linear-gradient(to right, white 15%, #c9111d 30%, #212121 100%)",
+                    background: "linear-gradient(to right, white 5%, rgb(201 17 29) 50%, #212121 100%)",
                 }}
             >
                 {/* <AnimationToggleButton /> */}

@@ -21,15 +21,15 @@ const WhatWeDoPage = () => {
 
     return (
         <div className="text-black">
-            <div className="h-screen flex flex-col" id="section-1">
+            <div className={`h-dvh w-full`} id="section-1">
                 <ProcessCreation />
             </div>
 
-            <div className="h-screen flex flex-col" id="section-2">
+            <div className={`h-dvh w-full`} id="section-2">
                 <DetailedResources />
             </div>
 
-            <div className="h-screen flex flex-col" id="section-3">
+            <div className={`h-dvh w-full`} id="section-3">
                 <AvailableLogistics />
             </div>
         </div>

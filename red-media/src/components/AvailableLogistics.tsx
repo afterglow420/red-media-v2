@@ -85,13 +85,13 @@ const AvailableLogistics = () => {
                 <div className="relative flex flex-col items-center justify-center w-full h-full bg-[gray]">
                     Image
                     <div
-                        className="absolute top-[100%] lg:top-[50%] translate-y-[-100%] lg:translate-y-[-50%] -left-1 w-4/5 lg:w-2/5 bg-customRed h-1/3 lg:h-1/2 z-20 flex flex-col items-center justify-center"
+                        className="absolute top-[100%] lg:top-[50%] translate-y-[-100%] lg:translate-y-[-50%] -left-1 w-4/5 lg:w-2/5 bg-customRed h-3/5 lg:h-1/2 z-20 flex flex-col items-center justify-center"
                         style={{
                             clipPath: 'polygon(0 0, 88% 0, 100% 100%, 0 100%)',
 
                         }}
                     >
-                            <div className="w-full pr-5 lg:pr-12 pl-2 text-white font-bold text-shadow-white text-start text-[10px] lg:text-[14px]">
+                        <div className="w-full pr-7 lg:pr-12 pl-2 text-white font-bold text-start text-[10px] lg:text-[14px]">
                             <p>
                                 Our logistics expertise also extends to the assembly of all components, ensuring that every element is seamlessly integrated into the campaign. Whether it's coordinating the implementation of independent activations,
                                 managing logistics for multi-element experiences or optimizing resource allocation for maximum efficiency, we handle assembly complexity with professionalism and skill.
@@ -119,13 +119,13 @@ const AvailableLogistics = () => {
                 <div className="relative flex flex-col items-center justify-center w-full h-full bg-[gray]">
                     Image
                     <div
-                        className="absolute bottom-[0%] lg:top-[50%] translate-y-[0%] lg:translate-y-[-50%] -right-[6px] w-4/5 lg:w-2/5 bg-customRed h-1/3 lg:h-1/2 z-20 flex flex-col items-center justify-center text-center"
+                        className="absolute bottom-[0%] lg:top-[50%] translate-y-[0%] lg:translate-y-[-50%] -right-[6px] w-4/5 lg:w-2/5 bg-customRed h-3/5 lg:h-1/2 z-20 flex flex-col items-center justify-center text-center"
                         style={{
                             clipPath: 'polygon(12% 0, 100% 0, 100% 100%, 0 100%)',
 
                         }}
                     >
-                        <div className="w-full pr-2 pl-7 lg:pl-12 text-white font-bold text-shadow-white text-end text-[10px] lg:text-[14px]">
+                        <div className="w-full pr-2 pl-7 lg:pl-12 text-white font-bold text-end text-[10px] lg:text-[14px]">
                             <p>
                                 The assembly and distribution of the campaign is carried out with the help of a fleet of 6 specialized vans, equipped with GPS system for monitoring and increased safety in transport.
 
@@ -153,7 +153,7 @@ const AvailableLogistics = () => {
                     />
                 </div>
             </div>
-            <div className="w-full h-[15%] flex flex-col items-center justify-center text-white">
+            <div className="w-full h-[20%] flex flex-col items-center justify-center text-white">
                 <div className="flex flex-col items-center justify-center w-full h-1/5">
                     <div className="flex flex-row items-center justify-center">
                         <p
@@ -183,7 +183,7 @@ const AvailableLogistics = () => {
                     >
                         <button
                             className="bg-customRed rounded-2xl text-white text-sm lg:text-lg lg:rounded-3xl px-2 py-1 lg:px-4 lg:py-2 text-center cursor-pointer hover:bg-white hover:text-customRed transition-colors duration-300"
-                            onClick={() => console.log("LET'S TALK BUSINESS button clicked")} // Replace with your desired action
+                            onClick={() => console.log("LET'S TALK BUSINESS button clicked")}
                         >
                             <p className="text-[12px] md:text-[16px] lg:text-[20px] xl:text-[24px] font-bold tracking-extra-wide">
                                 LET'S WORK TOGETHER
