@@ -93,7 +93,7 @@ const ProjectsPresentation = () => {
     }, [currentSection, animationsEnabled]);
 
     return (
-        <>
+        <div className="flex flex-col h-full w-full">
             <Navigation />
             <div className="flex flex-col items-center justify-center h-full w-full">
                 {/* Animated Paragraphs */}
@@ -137,7 +137,7 @@ const ProjectsPresentation = () => {
                     {/* "COMPLETE EXPERIENCES" Text */}
                     <p
                         ref={completeExperiencesRef}
-                        className={`text-customRed font-bold text-[20px] md:text-[3rem] lg:text-[3.5rem] xl:text-[4.75rem] lg:tracking-wider text-stroke-customRed text-stroke-3 text-shadow-customRed-md lg:text-shadow-customRed-lg opacity-0 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md ${animationsEnabled ? "opacity-0" : "opacity-100"} text-center`}
                     >
                         {animationsEnabled ? "" : "COMPLETE EXPERIENCES"}
                     </p>
@@ -165,7 +165,7 @@ const ProjectsPresentation = () => {
                             </button>
                         </div> */}
             </div>
-        </>
+        </div>
     );
 };
 

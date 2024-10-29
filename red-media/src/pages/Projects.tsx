@@ -20,10 +20,10 @@ const Projects = () => {
 
     return (
         <div className="text-white">
-            <div className="h-screen flex flex-col" id="section-1">
+            <div className={`h-dvh w-full`} id="section-1">
                 <ProjectsPresentation />
             </div>
-            <div className="h-screen flex flex-col" id="section-2">
+            <div className={`h-dvh w-full`} id="section-2">
                 <ProjectsDetailed />
             </div>
         </div>

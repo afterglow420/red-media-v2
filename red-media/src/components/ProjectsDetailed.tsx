@@ -53,14 +53,14 @@ const ProjectsDetailed = () => {
     }, [currentSection]);
 
     return (
-        <div className="flex flex-col items-center justify-center w-full h-full bg-[#212121] p-6">
+        <div className="flex flex-col items-center justify-start w-full h-full bg-[#212121] pt-1">
             {/* Header Section */}
             <div
-                className="flex flex-row items-center gap-5 justify-center h-[10%] w-full mb-8"
+                className="flex flex-row items-center gap-2 justify-center h-[15%] w-full"
             >
                 <div
                     ref={whiteDivRef}
-                    className="h-14 w-32 bg-white transform translate-x-[-100px] opacity-0"
+                    className="h-12 w-32 bg-white transform translate-x-[-100px] opacity-0"
                 >
                     {/* Replace with your logo or other elements if needed */}
                 </div>
@@ -68,63 +68,64 @@ const ProjectsDetailed = () => {
                     ref={logoRef}
                     src="/images/logos/white-brackets-r.png"
                     alt="White brackets logo"
-                    className="w-14 h-14 transform translate-x-[-100px] opacity-0"
+                    className="w-10 h-10 transform translate-x-[-100px] opacity-0"
                 />
                 <p
                     ref={projectsTextRef}
-                    className="text-transparent text-stroke-2 text-stroke-customRed text-[3rem] font-bold transform translate-x-[-100px] opacity-0"
+                    className="text-transparent text-stroke-2 text-stroke-customRed text-[2rem] font-bold transform translate-x-[-100px] opacity-0"
                 >
                     PROJECTS
                 </p>
                 <div
                     ref={redOutlineRef}
-                    className="h-14 w-full border-4 border-customRed transform translate-x-[-100px] opacity-0"
+                    className="h-12 w-full border-4 border-customRed transform translate-x-[-100px] opacity-0"
                 >
                     {/* Decorative element or separator */}
                 </div>
             </div>
 
             {/* Brackets and Grid */}
-            <div className="flex flex-row items-center justify-center w-full h-full gap-6 p-4">
-                {/* Right Bracket */}
+            <div className="flex flex-col items-center justify-start w-full h-full gap-4 p-4">
+                {/* Optional Top Bracket */}
                 <div className="hidden lg:block">
                     <img
                         src="/images/brackets/solid-red-bracket.png"
                         alt="Solid red bracket"
-                        className="h-60 w-auto"
+                        className="h-10 w-auto"
                     />
                 </div>
-                {/* 3x3 Flexbox Grid for Project Videos */}
-                <div className="flex flex-wrap justify-center items-center gap-6 w-full lg:w-auto max-h-[80vh] sm:max-h-none overflow-y-auto">
+
+                {/* Project Items */}
+                <div className="flex flex-col items-center gap-5 w-full overflow-y-auto p-2">
+                    {/* Map through projectsData */}
                     {projectsData.map((project, index) => (
                         <div
                             key={index}
-                            className="relative flex flex-col items-center justify-center w-full sm:w-2/5 lg:w-1/4 bg-gray-800 border-2 border-customRed rounded-lg shadow-md p-4 transition-transform transform-gpu hover:scale-105 hover:shadow-xl hover:z-10"
+                            className="relative flex flex-col items-center justify-center w-full bg-gray-800 border-2 border-customRed rounded-lg shadow-md p-4 transition-transform transform-gpu hover:scale-105 hover:shadow-xl hover:z-10"
                         >
-                            {/* Video Element */}
-                            {project.videoUrl ? (
+                            {/* @ts-ignore */}
+                            {project.videoUrl && project.videoUrl ? (
                                 <video
                                     src={project.videoUrl}
                                     controls
-                                    className="w-full h-auto object-cover rounded-md mb-4"
+                                    className="w-full h-auto object-cover rounded-md"
                                 />
                             ) : (
-                                /* Placeholder for Videos Not Yet Available */
-                                <div className="w-full h-48 bg-gray-700 flex items-center justify-center rounded-md mb-4">
+                                <div className="w-full h-48 bg-gray-700 flex items-center justify-center rounded-md">
                                     <span className="text-gray-400">Video Coming Soon</span>
                                 </div>
                             )}
-                            {/* Project Name */}
                             <p className="text-lg font-semibold text-center text-customRed">{project.name}</p>
                         </div>
                     ))}
                 </div>
-                {/* Left Bracket */}
+
+                {/* Optional Bottom Bracket */}
                 <div className="hidden lg:block">
                     <img
                         src="/images/brackets/solid-white-bracket.png"
                         alt="Solid white bracket"
-                        className="h-60 w-auto rotate-180"
+                        className="h-10 w-auto rotate-180"
                     />
                 </div>
             </div>
@@ -135,15 +136,21 @@ const ProjectsDetailed = () => {
 export default ProjectsDetailed;
 
 
+
 // projectsData.js
-const projectsData = [
-    { name: "Project Alpha", videoUrl: "path/to/video1.mp4" },
-    { name: "Project Beta", videoUrl: "path/to/video2.mp4" },
-    { name: "Project Gamma", videoUrl: "path/to/video3.mp4" },
-    { name: "Project Delta", videoUrl: "path/to/video4.mp4" },
-    { name: "Project Epsilon", videoUrl: "path/to/video5.mp4" },
-    { name: "Project Zeta", videoUrl: "path/to/video6.mp4" },
-    { name: "Project Eta", videoUrl: "path/to/video7.mp4" },
-    { name: "Project Theta", videoUrl: "path/to/video8.mp4" },
-    { name: "Project Iota", videoUrl: "path/to/video9.mp4" },
+type Project = {
+    name: string;
+    videoUrl?: string; // Optional property
+};
+
+const projectsData: Project[] = [
+    { name: "Aperol" },
+    { name: "Cappy" },
+    { name: "Coca Cola" },
+    { name: "Kit Kat" },
+    { name: "Maybelline" },
+    { name: "Samsung #1" },
+    { name: "Samsung #2" },
+    { name: "Vodafone" },
 ];
+
