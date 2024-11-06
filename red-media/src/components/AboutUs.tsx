@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Navigation from './Navigation';
-import anime from 'animejs';
+import anime, { AnimeTimelineInstance } from 'animejs';
 import { useSectionStore } from '@store/useSectionStore';
 
 const AboutUs = () => {
@@ -17,79 +17,169 @@ const AboutUs = () => {
     const subBrandNeedsTextRef = useRef(null);
     const rLogoRef = useRef(null);
     const rShadowRef = useRef(null);
+    const entryAnimationRef = useRef<AnimeTimelineInstance | null>(null);
+    const exitAnimationRef = useRef<AnimeTimelineInstance | null>(null);
+    const animationsActive = useRef(false);
 
     // Effects
     useEffect(() => {
-        if (currentSection !== 1) return;
-        if (!animationsEnabled) return;
+        if (currentSection === 1 && animationsEnabled && !animationsActive.current) {
+            animationsActive.current = true;
 
-        anime
-            .timeline({ loop: false })
-            // Animate the greeting area (background image)
-            .add({
-                targets: greetingAreaRef.current,
-                opacity: [0, 1],
-                easing: 'easeOutQuad',
-                duration: 500,
-            })
-            // Animate "GREAT MEETING YOU" section sliding in
-            .add({
-                targets: meetingYouRef.current,
-                opacity: [0, 1],
-                translateX: ['100%', '0%'],
-                easing: 'easeOutQuad',
-                duration: 800,
-            })
-            // Animate the "R" logo dropping down
-            .add({
-                targets: rLogoRef.current,
-                translateY: ['-100%', '0%'],
-                opacity: [0, 1],
-                easing: 'easeOutBounce',
-                duration: 800,
-            })
-            // Animate the shadow growing
-            .add(
-                {
-                    targets: rShadowRef.current,
-                    scale: [0, 1],
-                    opacity: [0, 0.5],
+            requestAnimationFrame(() => {
+                // Entry Animations
+                entryAnimationRef.current = anime.timeline({
+                    autoplay: true,
                     easing: 'easeOutQuad',
-                    duration: 800,
-                },
-                '-=600' // Start 600ms before the previous animation ends
-            )
-            // Animate the "ABOUT US" tag
-            .add({
-                targets: aboutUsTagRef.current,
-                opacity: [0, 1],
-                translateX: ['100%', '0%'],
-                easing: 'easeOutQuad',
-                duration: 800,
-            })
-            // Animate the brackets and text
-            .add({
-                targets: bracketsRef.current,
-                opacity: [0, 1],
-                translateY: ['50%', '0%'],
-                easing: 'easeOutQuad',
-                duration: 800,
-            })
-            .add({
-                targets: brandNeedsTextRef.current,
-                opacity: [0, 1],
-                translateY: ['50%', '0%'],
-                easing: 'easeOutQuad',
-                duration: 800,
-            })
-            .add({
-                targets: subBrandNeedsTextRef.current,
-                opacity: [0, 1],
-                translateY: ['50%', '0%'],
-                easing: 'easeOutQuad',
-                duration: 800,
+                })
+                    // Animate the greeting area (background image)
+                    .add({
+                        targets: greetingAreaRef.current,
+                        opacity: [0, 1],
+                        duration: 500,
+                    })
+                    // Animate "GREAT MEETING YOU" section sliding in
+                    .add({
+                        targets: meetingYouRef.current,
+                        opacity: [0, 1],
+                        translateX: ['100%', '0%'],
+                        duration: 800,
+                    })
+                    // Animate the "R" logo dropping down
+                    .add({
+                        targets: rLogoRef.current,
+                        translateY: ['-100%', '0%'],
+                        opacity: [0, 1],
+                        easing: 'easeOutBounce',
+                        duration: 800,
+                    })
+                    // Animate the shadow growing
+                    .add({
+                        targets: rShadowRef.current,
+                        scale: [0, 1],
+                        opacity: [0, 0.5],
+                        duration: 800,
+                    }, '-=600') // Start 600ms before the previous animation ends
+                    // Animate the "ABOUT US" tag
+                    .add({
+                        targets: aboutUsTagRef.current,
+                        opacity: [0, 1],
+                        translateX: ['100%', '0%'],
+                        duration: 800,
+                    })
+                    // Animate the brackets and text
+                    .add({
+                        targets: bracketsRef.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    })
+                    .add({
+                        targets: brandNeedsTextRef.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    })
+                    .add({
+                        targets: subBrandNeedsTextRef.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    });
             });
-    }, [currentSection]);
+
+        } else if ((currentSection !== 1 || !animationsEnabled) && animationsActive.current) {
+            animationsActive.current = false;
+
+            // Pause any ongoing entry animations
+            if (entryAnimationRef.current) {
+                entryAnimationRef.current.pause();
+            }
+
+            requestAnimationFrame(() => {
+                // Exit Animations
+                exitAnimationRef.current = anime.timeline({
+                    autoplay: true,
+                    easing: 'easeInOutQuad',
+                })
+                    // Animate the sub-brand needs text exiting
+                    .add({
+                        targets: subBrandNeedsTextRef.current,
+                        opacity: [1, 0],
+                        translateY: ['0%', '50%'],
+                        duration: 200,
+                    })
+                    // Animate the brand needs text exiting
+                    .add({
+                        targets: brandNeedsTextRef.current,
+                        opacity: [1, 0],
+                        translateY: ['0%', '50%'],
+                        duration: 200,
+                    })
+                    // Animate the brackets exiting
+                    .add({
+                        targets: bracketsRef.current,
+                        opacity: [1, 0],
+                        translateY: ['0%', '50%'],
+                        duration: 200,
+                    })
+                    // Animate the "ABOUT US" tag exiting
+                    .add({
+                        targets: aboutUsTagRef.current,
+                        opacity: [1, 0],
+                        translateX: ['0%', '100%'],
+                        duration: 200,
+                    })
+                    // Animate the shadow shrinking
+                    .add({
+                        targets: rShadowRef.current,
+                        scale: [1, 0],
+                        opacity: [0.5, 0],
+                        duration: 200,
+                    })
+                    // Animate the "R" logo exiting
+                    .add({
+                        targets: rLogoRef.current,
+                        translateY: ['0%', '-100%'],
+                        opacity: [1, 0],
+                        duration: 200,
+                    })
+                    // Animate "GREAT MEETING YOU" section exiting
+                    .add({
+                        targets: meetingYouRef.current,
+                        opacity: [1, 0],
+                        translateX: ['0%', '100%'],
+                        duration: 200,
+                    })
+                    // Animate the greeting area (background image) exiting
+                    .add({
+                        targets: greetingAreaRef.current,
+                        opacity: [1, 0],
+                        duration: 100,
+                    });
+            });
+        }
+
+        return () => {
+            // Cleanup animations on unmount
+            if (entryAnimationRef.current) {
+                entryAnimationRef.current.pause();
+            }
+            if (exitAnimationRef.current) {
+                exitAnimationRef.current.pause();
+            }
+            anime.remove([
+                greetingAreaRef.current,
+                meetingYouRef.current,
+                aboutUsTagRef.current,
+                bracketsRef.current,
+                brandNeedsTextRef.current,
+                subBrandNeedsTextRef.current,
+                rLogoRef.current,
+                rShadowRef.current,
+            ]);
+        };
+    }, [currentSection, animationsEnabled]);
 
     return (
         <div className="relative h-full w-full flex flex-col">
@@ -98,7 +188,7 @@ const AboutUs = () => {
             <div className="relative flex flex-col items-center justify-center h-full bg-white w-full">
                 <div
                     ref={greetingAreaRef}
-                    className="relative flex flex-col items-center h-full w-full"
+                    className="relative flex flex-col items-center h-full w-full opacity-0"
                     style={{
                         backgroundImage: "url('/images/bg/who-we-are-page-warehouse.jpg')",
                         backgroundSize: 'cover',
@@ -108,11 +198,9 @@ const AboutUs = () => {
                     <div className="flex flex-col w-full h-full">
                         <div
                             ref={meetingYouRef}
-                            className="relative w-4/5 lg:w-1/2 h-2/5 text-center flex flex-col justify-center items-center bg-customRed"
+                            className="relative w-4/5 lg:w-1/2 h-2/5 text-center flex flex-col justify-center items-center bg-customRed opacity-0 translate-x-full"
                             style={{
                                 clipPath: 'polygon(0 0, 88% 0, 100% 100%, 0 100%)',
-                                opacity: 0,
-                                transform: 'translateX(100%)',
                             }}
                         >
                             <div className="flex flex-col gap-2 leading-tight tracking-wider md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white text-shadow-lg font-bold lg:text-[80px] md:text-[60px] text-[40px]">
@@ -126,11 +214,7 @@ const AboutUs = () => {
                     {/* About Us Tag */}
                     <div
                         ref={aboutUsTagRef}
-                        className="absolute bottom-[10%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20"
-                        style={{
-                            opacity: 0,
-                            transform: 'translateX(100%)',
-                        }}
+                        className="absolute bottom-[10%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20 opacity-0 translate-x-full"
                     >
                         <div className="flex flex-col items-end justify-center px-2 lg:gap-3">
                             <div className="flex flex-row gap-2 lg:gap-3 items-center">
@@ -175,13 +259,16 @@ const AboutUs = () => {
             </div>
 
             {/* R Logo and Shadow */}
-            <div className="w-full h-[25%] bg-white">
+            <div className="w-full h-[50%] bg-white relative">
                 <div className="relative w-full h-full justify-center items-center gap-0 flex flex-col p-1">
                     {/* R Logo */}
                     <div
                         ref={rLogoRef}
-                        className="w-10 h-10 lg:w-16 lg:h-16"
-                        style={{ opacity: 0, transform: 'translateY(-100%)' }}
+                        className="w-10 h-10 lg:w-16 lg:h-16 opacity-0 translate-y-full"
+                        style={{
+                            transform: 'translateY(-100%)',
+                            transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                        }}
                     >
                         <img
                             src="/images/logos/gray-brackets-r.png"
@@ -192,20 +279,22 @@ const AboutUs = () => {
                     {/* Shadow */}
                     <div
                         ref={rShadowRef}
-                        className="absolute top-[20%] lg:top-[25%] w-14 h-8 lg:w-24 lg:h-14"
+                        className="absolute top-[20%] lg:top-[25%] w-14 h-8 lg:w-24 lg:h-14 opacity-0 scale-y-0"
                         style={{
                             borderRadius: '50%',
                             background: 'black',
-                            opacity: 0.5,
                             filter: 'blur(10px)',
-                            transform: 'scale(1, 0.2)',
+                            transformOrigin: 'center',
+                            transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
                         }}
                     />
                     {/* Brackets and Text */}
                     <div
                         ref={bracketsRef}
-                        className="flex flex-row gap-2 w-3/4 h-full items-center justify-center leading-tight"
-                        style={{ opacity: 0, transform: 'translateY(50%)' }}
+                        className="flex flex-row gap-1 w-3/4 h-full items-center justify-center leading-tight opacity-0 translate-y-full mt-20"
+                        style={{
+                            transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                        }}
                     >
                         <div className="flex flex-col items-center justify-center">
                             <img
@@ -217,16 +306,14 @@ const AboutUs = () => {
                         <div className="relative flex flex-col gap-1 lg:gap-2 text-black">
                             <div
                                 ref={brandNeedsTextRef}
-                                className="flex flex-col font-bold text-[16px] lg:text-[32px] tracking-widest text-center text-shadow-black"
-                                style={{ opacity: 0, transform: 'translateY(50%)' }}
+                                className="flex flex-col font-bold text-[16px] lg:text-[32px] tracking-widest text-center text-shadow-black opacity-0 translate-y-1/2"
                             >
                                 <p>EVERYTHING</p>
                                 <p>YOUR BRAND NEEDS</p>
                             </div>
                             <div
                                 ref={subBrandNeedsTextRef}
-                                className="font-bold text-[10px] lg:text-[16px] text-center w-4/5 m-auto"
-                                style={{ opacity: 0, transform: 'translateY(50%)' }}
+                                className="font-bold text-[10px] lg:text-[16px] text-center w-4/5 m-auto opacity-0 translate-y-1/2"
                             >
                                 <p>
                                     The go-to partner for brands seeking comprehensive and innovative branding solutions,

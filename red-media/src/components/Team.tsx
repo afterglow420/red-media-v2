@@ -1,5 +1,6 @@
 import { useSectionStore } from "@store/useSectionStore";
-import anime from "animejs";
+import anime, { AnimeTimelineInstance } from "animejs";
+import React from "react";
 import { useEffect, useRef } from "react";
 
 const Team = () => {
@@ -8,62 +9,166 @@ const Team = () => {
     const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
 
     // Refs for the bars and title
-    const leftBarRef = useRef(null);
-    const rightBarRef = useRef(null);
-    const teamTitleRef = useRef(null);
+    const leftBarRef = useRef<HTMLDivElement>(null);
+    const rightBarRef = useRef<HTMLDivElement>(null);
+    const teamTitleRef = useRef<HTMLDivElement>(null);
 
     // Create refs dynamically for team members (6 members in this case)
-    const membersRef = useRef(Array(6).fill(null).map(() => useRef(null)));
+    const membersRef = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
+    if (membersRef.current.length !== 6) {
+        // Initialize refs if not already done
+        membersRef.current = Array(6)
+            .fill(null)
+            .map(() => React.createRef<HTMLDivElement>());
+    }
+
+    // Refs for animations
+    const entryAnimationRef = useRef<AnimeTimelineInstance | null>(null);
+    const exitAnimationRef = useRef<AnimeTimelineInstance | null>(null);
+    const animationsActive = useRef(false);
 
     // Effects
     useEffect(() => {
-        if (currentSection !== 2) return;
-        if (!animationsEnabled) return;
+        if (currentSection === 2 && animationsEnabled && !animationsActive.current) {
+            animationsActive.current = true;
 
-        const timeline = anime.timeline({ loop: false });
-
-        timeline
-            .add({
-                targets: leftBarRef.current,
-                opacity: [0, 1],
-                translateX: ['-200%', '0%'],
-                easing: 'easeOutExpo',
-                duration: 1000,
-                begin: function () {
-                    anime({
-                        targets: rightBarRef.current,
-                        translateX: ['200%', '0%'],
-                        easing: 'easeOutExpo',
-                        duration: 1000,
-                    });
-                },
-            })
-            .add({
-                targets: teamTitleRef.current,
-                opacity: [0, 1],
-                scale: [0.5, 1],
-                easing: 'easeOutExpo',
-                duration: 500,
-            })
-            .add({
-                targets: membersRef.current.map(ref => ref.current),
-                opacity: [0, 1],
-                translateY: ['50%', '0%'],
-                easing: 'easeOutExpo',
-                duration: 500,
-                delay: anime.stagger(200), // Stagger the animation of each member
+            requestAnimationFrame(() => {
+                // Entry Animations
+                entryAnimationRef.current = anime.timeline({
+                    autoplay: true,
+                    easing: 'easeOutQuad',
+                })
+                // Animate the left bar
+                .add({
+                    targets: leftBarRef.current,
+                    opacity: [0, 1],
+                    translateX: ['-200%', '0%'],
+                    duration: 1000,
+                    begin: function () {
+                        // Animate the right bar at the beginning of left bar animation
+                        anime({
+                            targets: rightBarRef.current,
+                            translateX: ['200%', '0%'],
+                            duration: 1000,
+                            easing: 'easeOutExpo',
+                        });
+                    },
+                })
+                // Animate the team title
+                .add({
+                    targets: teamTitleRef.current,
+                    opacity: [0, 1],
+                    scale: [0.5, 1],
+                    duration: 500,
+                })
+                // Animate the team members with stagger
+                .add({
+                    targets: membersRef.current.map(ref => ref.current),
+                    opacity: [0, 1],
+                    translateY: ['50%', '0%'],
+                    duration: 500,
+                    delay: anime.stagger(200), // Stagger the animation of each member
+                });
             });
-    }, [currentSection]);
+
+        } else if ((currentSection !== 2 || !animationsEnabled) && animationsActive.current) {
+            animationsActive.current = false;
+
+            // Pause any ongoing entry animations
+            if (entryAnimationRef.current) {
+                entryAnimationRef.current.pause();
+            }
+
+            requestAnimationFrame(() => {
+                // Exit Animations
+                exitAnimationRef.current = anime.timeline({
+                    autoplay: true,
+                    easing: 'easeInOutQuad',
+                })
+                // Animate the team members exiting with stagger
+                .add({
+                    targets: membersRef.current.map(ref => ref.current),
+                    opacity: [1, 0],
+                    translateY: ['0%', '50%'],
+                    duration: 500,
+                    delay: anime.stagger(200, { from: 'last' }), // Stagger the animation in reverse order
+                })
+                // Animate the team title exiting
+                .add({
+                    targets: teamTitleRef.current,
+                    opacity: [1, 0],
+                    scale: [1, 0.5],
+                    duration: 500,
+                })
+                // Animate the left bar exiting
+                .add({
+                    targets: leftBarRef.current,
+                    opacity: [1, 0],
+                    translateX: ['0%', '-200%'],
+                    duration: 1000,
+                    begin: function () {
+                        // Animate the right bar at the beginning of left bar exit animation
+                        anime({
+                            targets: rightBarRef.current,
+                            translateX: ['0%', '200%'],
+                            duration: 1000,
+                            easing: 'easeInOutExpo',
+                        });
+                    },
+                });
+            });
+        }
+
+        return () => {
+            // Cleanup animations on unmount
+            if (entryAnimationRef.current) {
+                entryAnimationRef.current.pause();
+            }
+            if (exitAnimationRef.current) {
+                exitAnimationRef.current.pause();
+            }
+            anime.remove([
+                leftBarRef.current,
+                rightBarRef.current,
+                teamTitleRef.current,
+                ...membersRef.current.map(ref => ref.current),
+            ]);
+        };
+    }, [currentSection, animationsEnabled]);
 
     return (
         <div className="flex flex-col bg-white w-full h-full">
             <div className="flex flex-row gap-2 h-[10%] w-full justify-between items-center">
-                <div ref={leftBarRef} className="bg-black h-12 w-[30%]" />
-                <div ref={teamTitleRef} className="flex flex-row items-center justify-center gap-1 lg:gap-2 text-end">
-                    <img src="/images/logos/gray-brackets-r.png" alt="Gray brackets logo" className="w-8 h-8 md:h-12 md:w-12 lg:w-16 lg:h-16" />
-                    <p className="text-transparent text-stroke-3 text-stroke-customRed tracking-extra-wide font-bold text-[32px] md:text-[40px] lg:text-[56px]">TEAM</p>
+                <div
+                    ref={leftBarRef}
+                    className="bg-black h-12 w-[30%] opacity-0 translate-x-[-200%]"
+                    style={{
+                        transition: 'opacity 1s ease-out, transform 1s ease-out',
+                    }}
+                />
+                <div
+                    ref={teamTitleRef}
+                    className="flex flex-row items-center justify-center gap-1 lg:gap-2 text-end opacity-0 scale-50"
+                    style={{
+                        transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                    }}
+                >
+                    <img
+                        src="/images/logos/gray-brackets-r.png"
+                        alt="Gray brackets logo"
+                        className="w-8 h-8 md:h-12 md:w-12 lg:w-16 lg:h-16"
+                    />
+                    <p className="text-transparent text-stroke-3 text-stroke-customRed tracking-extra-wide font-bold text-[32px] md:text-[40px] lg:text-[56px]">
+                        TEAM
+                    </p>
                 </div>
-                <div ref={rightBarRef} className="bg-white border-l-2 border-t-2 border-b-2 border-customRed h-12 w-[30%]" />
+                <div
+                    ref={rightBarRef}
+                    className="bg-white border-l-2 border-t-2 border-b-2 border-customRed h-12 w-[30%] translate-x-[200%]"
+                    style={{
+                        transition: 'transform 1s ease-out',
+                    }}
+                />
             </div>
 
             {/* Team Members */}
@@ -73,7 +178,10 @@ const Team = () => {
                         <div
                             ref={ref}
                             key={index}
-                            className="flex flex-col items-center gap-2 opacity-0"
+                            className="flex flex-col items-center gap-2 opacity-0 translate-y-[50%]"
+                            style={{
+                                transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                            }}
                         >
                             {/* Card Image */}
                             <div className="w-36 md:w-60 h-36 md:h-60 lg:w-80 lg:h-80 rounded-xl border-2 border-black justify-center items-center flex bg-[white] shadow-2xl text-black font-bold">
@@ -111,6 +219,7 @@ const Team = () => {
             </div>
         </div>
     );
+
 };
 
 export default Team;
