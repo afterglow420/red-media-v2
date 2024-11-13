@@ -203,7 +203,7 @@ const AboutUs = () => {
                                 clipPath: 'polygon(0 0, 88% 0, 100% 100%, 0 100%)',
                             }}
                         >
-                            <div className="flex flex-col gap-2 leading-tight tracking-wider md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white text-shadow-lg font-bold lg:text-[80px] md:text-[60px] text-[40px]">
+                            <div className="flex flex-col gap-2 leading-tight tracking-widest md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white font-[900] lg:text-[80px] md:text-[60px] text-[32px]">
                                 <p>GREAT</p>
                                 <p>MEETING</p>
                                 <p>YOU!</p>
@@ -214,7 +214,7 @@ const AboutUs = () => {
                     {/* About Us Tag */}
                     <div
                         ref={aboutUsTagRef}
-                        className="absolute bottom-[10%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20 opacity-0 translate-x-full"
+                        className="absolute bottom-[15%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20 opacity-0 translate-x-full"
                     >
                         <div className="flex flex-col items-end justify-center px-2 lg:gap-3">
                             <div className="flex flex-row gap-2 lg:gap-3 items-center">
@@ -222,11 +222,11 @@ const AboutUs = () => {
                                     <img
                                         src="/images/logos/gray-brackets-r.png"
                                         alt="Gray brackets logo"
-                                        className="w-8 lg:w-14 h-8 lg:h-14"
+                                        className="w-10 lg:w-14 h-10 lg:h-14"
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">
+                                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-[900] tracking-wider text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">
                                         ABOUT US
                                     </p>
                                 </div>

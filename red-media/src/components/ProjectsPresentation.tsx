@@ -125,7 +125,7 @@ const ProjectsPresentation = () => {
                 </div>
 
                 {/* Animated Brackets and Main Text */}
-                <div className="flex flex-row items-center gap-0 h-2/5 w-full justify-center">
+                <div className="flex flex-row items-center gap-0 h-2/5 w-full justify-center px-4">
                     {/* Left Bracket */}
                     <img
                         ref={leftBracketRef}
