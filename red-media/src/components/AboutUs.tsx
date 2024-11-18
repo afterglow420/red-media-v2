@@ -291,7 +291,7 @@ const AboutUs = () => {
                     {/* Brackets and Text */}
                     <div
                         ref={bracketsRef}
-                        className="flex flex-row gap-1 w-3/4 h-full items-center justify-center leading-tight opacity-0 translate-y-full mt-20"
+                        className="flex flex-row gap-1 w-full px-6 h-full items-center justify-center leading-tight opacity-0 translate-y-full mt-10"
                         style={{
                             transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
                         }}
@@ -300,7 +300,7 @@ const AboutUs = () => {
                             <img
                                 src="/images/brackets/gray-outline-bracket.png"
                                 alt="Gray bracket"
-                                className="h-32 w-12 lg:w-auto lg:h-44"
+                                className="w-32 h-auto lg:w-44 lg:h-auto"
                             />
                         </div>
                         <div className="relative flex flex-col gap-1 lg:gap-2 text-black">
@@ -325,7 +325,7 @@ const AboutUs = () => {
                             <img
                                 src="/images/brackets/gray-outline-bracket.png"
                                 alt="Gray bracket"
-                                className="h-32 w-12 lg:w-auto lg:h-44"
+                                className="w-32 h-auto lg:w-44 lg:h-auto"
                                 style={{ transform: 'rotate(180deg)' }}
                             />
                         </div>
