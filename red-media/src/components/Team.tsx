@@ -43,13 +43,13 @@ const Team = () => {
                     targets: leftBarRef.current,
                     opacity: [0, 1],
                     translateX: ['-200%', '0%'],
-                    duration: 1000,
+                    duration: 500,
                     begin: function () {
                         // Animate the right bar at the beginning of left bar animation
                         anime({
                             targets: rightBarRef.current,
                             translateX: ['200%', '0%'],
-                            duration: 1000,
+                            duration: 500,
                             easing: 'easeOutExpo',
                         });
                     },
@@ -66,7 +66,7 @@ const Team = () => {
                     targets: membersRef.current.map(ref => ref.current),
                     opacity: [0, 1],
                     translateY: ['50%', '0%'],
-                    duration: 500,
+                    duration: 300,
                     delay: anime.stagger(200), // Stagger the animation of each member
                 });
             });
