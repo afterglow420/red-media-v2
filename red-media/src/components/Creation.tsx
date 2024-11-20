@@ -3,10 +3,13 @@ import whiteOutlineBracket from "/images/brackets/white-outline-bracket.png";
 import { useEffect, useRef } from "react";
 import anime from "animejs";
 import useLazyBackgroundImage from "@hooks/useLazyBackgroundImage";
+import { useNavigate } from "react-router-dom";
 
 const Creation = () => {
+    // Router
+    const navigate = useNavigate();
     // Store
-    const { currentSection, animationsEnabled, isScrolling } = useSectionStore();
+    const { currentSection, animationsEnabled, isScrolling, setCurrentSection } = useSectionStore();
 
     // Refs
     const redElement = useRef<HTMLDivElement>(null);
@@ -106,6 +109,17 @@ const Creation = () => {
         };
     }, [currentSection, animationsEnabled, isScrolling]);
 
+    // Navigate handlers
+    const handleFindOutHow = () => {
+        setCurrentSection(1);
+        navigate("/what-we-do");
+    };
+
+    const handleContactUs = () => {
+        setCurrentSection(1);
+        navigate("/contact");
+    };
+
     return (
         <div className="flex flex-col items-center justify-center w-full h-full">
             <div className="relative flex flex-row h-[70%] w-full">
@@ -120,14 +134,14 @@ const Creation = () => {
                         <img
                             src={whiteOutlineBracket}
                             alt="White bracket"
-                            className="h-4/5"
+                            className="h-4/5 lg:h-full"
                             loading="lazy"
                         />
                         <div className="absolute right-0 top-[50%] translate-y-[-50%] flex flex-col items-end justify-center gap-5">
-                            <p className="text-[26px] sm:text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] 2xl:text-[120px] font-[900] mr-3 lg:mr-8">
+                            <p className="text-[1.5rem] lg:text-[5.5rem] lg:tracking-widest 2xl:tracking-wide 2xl:text-[8rem] font-[900] mr-3 lg:mr-8">
                                 WHERE
                             </p>
-                            <p className="text-[26px] sm:text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] 2xl:text-[120px] font-[900] mr-1 lg:mr-1">
+                            <p className="text-[1.5rem] lg:text-[5.5rem] lg:tracking-widest 2xl:tracking-wide 2xl:text-[8rem] font-[900] mr-1 lg:mr-1">
                                 MEETS
                             </p>
                         </div>
@@ -137,7 +151,7 @@ const Creation = () => {
                 {/* Image Element */}
                 <div
                     ref={imageElement}
-                    className="z-5 absolute top-0 right-0 w-[75%] h-full opacity-0"
+                    className="z-5 absolute top-0 right-0 w-3/5 h-full opacity-0"
                     style={{
                         clipPath: "polygon(4% 0, 100% 0, 100% 100%, 14% 100%)",
                         backgroundImage: `url(${backgroundImage})`,
@@ -146,19 +160,19 @@ const Creation = () => {
                     }}
                 >
                     {/* Content inside imageElement */}
-                    <div className="relative w-[70%] h-[70%] flex flex-row items-center justify-end gap-2 py-1 md:py-2 lg:py-4 xl:py-5 px-1 md:px-2 lg:px-4 xl:px-5 ml-auto">
+                    <div className="relative w-[88%] h-[70%] flex flex-row items-center justify-end gap-2 py-1 md:py-2 lg:py-4 xl:py-5 px-1 md:px-2 lg:px-4 xl:px-5 ml-auto">
                         <div className="absolute left-0 top-[50%] translate-y-[-50%] flex flex-col items-start justify-center gap-5">
-                            <p className="text-[26px] sm:text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] 2xl:text-[120px] font-[900]">
+                            <p className="text-[1.5rem] lg:text-[5.5rem] lg:tracking-widest 2xl:tracking-wide 2xl:text-[8rem] font-[900]">
                                 CREATION
                             </p>
-                            <p className="text-[26px] sm:text-[40px] md:text-[60px] lg:text-[80px] xl:text-[100px] 2xl:text-[120px] font-[900] ml-2 lg:ml-7">
+                            <p className="text-[1.5rem] lg:text-[5.5rem] lg:tracking-widest 2xl:tracking-wide 2xl:text-[8rem] font-[900] ml-2 lg:ml-7">
                                 REALITY
                             </p>
                         </div>
                         <img
                             src={whiteOutlineBracket}
                             alt="White bracket"
-                            className="transform -scale-x-100 h-4/5"
+                            className="transform -scale-x-100 h-4/5 lg:h-full"
                             loading="lazy"
                         />
                     </div>
@@ -167,20 +181,20 @@ const Creation = () => {
                 {/* Pills Container */}
                 <div
                     ref={pillsContainer}
-                    className="absolute bottom-[15%] left-[50%] translate-x-[-50%] w-full h-20 flex justify-around items-center opacity-0"
+                    className="absolute bottom-[10%] left-[50%] translate-x-[-50%] w-full h-20 flex justify-around items-center opacity-0"
                 >
                     <div className="flex-1 flex justify-center">
                         <button
-                            className="bg-white rounded-2xl text-customRed border text-sm lg:text-lg lg:rounded-3xl p-1 px-4 py-2 text-center cursor-pointer hover:bg-customRed hover:text-white transition-colors duration-300"
-                            onClick={() => console.log("FIND OUT HOW button clicked")}
+                            className="font-[900] bg-white rounded-2xl text-customRed border text-sm lg:text-xl lg:rounded-3xl p-1 px-5 py-2 text-center cursor-pointer hover:bg-customRed hover:text-white transition-colors duration-300"
+                            onClick={handleFindOutHow}
                         >
                             FIND OUT HOW
                         </button>
                     </div>
                     <div className="flex-1 flex justify-center">
                         <button
-                            className="bg-customRed rounded-2xl text-white text-sm lg:text-lg lg:rounded-3xl p-1 px-4 py-2 text-center cursor-pointer hover:bg-white hover:text-customRed transition-colors duration-300"
-                            onClick={() => console.log("CONTACT US button clicked")}
+                            className="font-[900] bg-customRed rounded-2xl text-white text-sm lg:text-xl lg:rounded-3xl p-1 px-5 py-2 text-center cursor-pointer hover:bg-white hover:text-customRed transition-colors duration-300"
+                            onClick={handleContactUs}
                         >
                             CONTACT US
                         </button>
