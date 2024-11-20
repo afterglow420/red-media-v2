@@ -70,7 +70,7 @@ const DesktopNavigation = () => {
                 </div>
 
                 {/* Center Logo */}
-                <div ref={logoRef} className="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col justify-center items-center bg-white w-56 h-[150%] opacity-100 z-[40] rounded-b-[5px]">
+                <div ref={logoRef} className="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col justify-center items-center bg-white w-56 h-[125%] 2xl:h-[150%] opacity-100 z-[40] rounded-b-[5px]">
                     {/* <AnimationToggleButton /> */}
                     <img
                         src={rmgDropdownLogo} // Correct absolute path

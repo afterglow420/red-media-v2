@@ -45,7 +45,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({ navItem, shouldBeInvert
                 className={clsx(
                     'transition-colors duration-300',
                     'mx-0 xl:mx-1',
-                    'font-bold text-sm md:text-base lg:text-lg xl:text-2xl',
+                    'font-bold text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl',
                     shouldBeInverted
                         ? 'text-[#c9111d] group-hover:text-black'
                         : 'text-[#c9111d] group-hover:text-white'
