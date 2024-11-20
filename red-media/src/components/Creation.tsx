@@ -20,7 +20,7 @@ const Creation = () => {
     // Hooks 
     const backgroundImage = useLazyBackgroundImage(
         imageElement,
-        "/images/bg/creation-meets-reality.jpg"
+        "/images/bg/creation-meets-reality.png"
     );
 
     // Effects
