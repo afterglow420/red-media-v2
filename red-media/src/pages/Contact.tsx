@@ -22,7 +22,6 @@ const Contact = () => {
     const drawerRef = useRef<HTMLDivElement>(null); // Ref for the drawer
     const formRef = useRef<HTMLFormElement>(null);
     const largeFormRef = useRef<HTMLDivElement>(null);
-    const sendButtonRefLarge = useRef<HTMLButtonElement>(null);
 
     // State for form values
     const [formValues, setFormValues] = useState({
@@ -182,15 +181,6 @@ const Contact = () => {
         }
     }, [isDrawerOpen]);
 
-    // Send Button Animation
-    const handleSend = () => {
-        setFormValues({
-            name: '',
-            email: '',
-            message: '',
-        });
-    };
-
     return (
         <div className="text-white overflow-hidden">
             <div className={`h-dvh w-full`} id="section-1">
@@ -207,13 +197,13 @@ const Contact = () => {
                                 <img
                                     src="/images/brackets/red-outline-bracket.png"
                                     alt="Red Outline Bracket"
-                                    className="h-20 w-auto"
+                                    className="h-20 xl:h-24 2xl:h-36 w-auto"
                                 />
                             </p>
 
                             <p
                                 ref={businessTextRef}
-                                className="text-white text-[20px] lg:text-[50px] font-bold"
+                                className="text-white text-[1.25rem] lg:text-[3rem] 2xl:text-[4rem] font-bold"
                                 style={{ opacity: animationsEnabled ? 0 : 1 }}
                             >
                                 {animationsEnabled ? '' : businessText}
@@ -225,7 +215,7 @@ const Contact = () => {
                                 <img
                                     src="/images/brackets/red-outline-bracket.png"
                                     alt="Red Outline Bracket"
-                                    className="h-20 w-auto transform -scale-x-100"
+                                    className="h-20 xl:h-24 2xl:h-36 w-auto transform -scale-x-100"
                                 />
                             </p>
                         </div>
@@ -241,17 +231,17 @@ const Contact = () => {
                         >
                             <div className="w-full h-full p-2 flex flex-col justify-around pl-4 lg:pl-8 font-bold text-[0.8rem] lg:text-[1.25rem] 2xl:text-[1.75rem]">
                                 <div className="flex flex-row items-center gap-2">
-                                    <div className="flex items-center justify-center w-6 h-6">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <div className="flex items-center justify-center w-6 2xl:w-10 lg:w-8 lg:h-8 h-6 2xl:h-10">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M22 16.92V22a2 2 0 0 1-2.18 2 19.88 19.88 0 0 1-8.63-3.13 19.51 19.51 0 0 1-6-6A19.88 19.88 0 0 1 2 4.18 2 2 0 0 1 4 2h5.08a2 2 0 0 1 2 1.72 12.05 12.05 0 0 0 .68 2.92 2 2 0 0 1-.45 2.11L9.91 10a16 16 0 0 0 6 6l1.25-1.25a2 2 0 0 1 2.11-.45 12.05 12.05 0 0 0 2.92.68 2 2 0 0 1 1.72 2z"></path>
                                         </svg>
                                     </div>
-                                    <span>+40 xxx xxxxxxx</span>
+                                    <span className="tracking-widest">+40 xxx xxxxxxx</span>
                                 </div>
 
                                 <div className="flex flex-row gap-2 items-center">
-                                    <div className="flex items-center justify-center w-6 h-6">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <div className="flex items-center justify-center w-6 2xl:w-10 lg:w-8 lg:h-8 h-6 2xl:h-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
                                             <circle cx="12" cy="9" r="2.5"></circle>
                                         </svg>
@@ -263,14 +253,14 @@ const Contact = () => {
                                 </div>
 
                                 <div className="flex flex-row items-center gap-2">
-                                    <div className="flex items-center justify-center w-6 h-6">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <div className="flex items-center justify-center w-6 2xl:w-10 lg:w-8 lg:h-8 h-6 2xl:h-10">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <path d="M16 12a4 4 0 1 1-4-4 4 4 0 0 1 4 4v2a2 2 0 1 0 4 0v-2"></path>
                                         </svg>
 
                                     </div>
-                                    <span>office@red-group.ro</span>
+                                    <span className="tracking-widest">office@red-group.ro</span>
                                 </div>
                             </div>
                         </div>
@@ -316,20 +306,30 @@ const Contact = () => {
 
                         {/* Large Form */}
                         <div
-                            className="hidden lg:absolute lg:flex lg:flex-col lg:items-center lg:gap-1 left-0 top-[45%] bottom-3 w-1/5 p-1 text-[#c9111d] font-bold"
+                            className="hidden lg:absolute lg:flex lg:flex-col lg:items-center lg:gap-0 left-0 top-[40%] bottom-3 w-1/5 p-1 text-[#c9111d] font-bold"
                             ref={largeFormRef}
                         >
                             <div className="p-1 flex flex-col gap-2 items-center h-full w-full">
                                 {/* Contact Form */}
+                                {/* Name Input */}
+                                <label htmlFor="label" className="w-full text-center font-[900] text-[1.5rem] 2xl:text-[2rem] leading-none tracking-widest">GET IN TOUCH!</label>
                                 <form
                                     className="w-full max-w-md flex flex-col gap-1"
                                     ref={formRef}
                                     onSubmit={(e) => {
                                         e.preventDefault();
-                                        handleSend();
+                                        // Handle form submission logic here
+                                        // For example, send data to an API or display a success message
+                                        // After handling, you might want to close the drawer
+                                        setIsDrawerOpen(false);
+                                        setFormValues({
+                                            name: "",
+                                            email: "",
+                                            message: "",
+                                        });
                                     }}
                                 >
-                                    {/* Name Input */}
+
                                     <div>
                                         <input
                                             type="text"
@@ -349,7 +349,7 @@ const Contact = () => {
                                             type="email"
                                             id="email"
                                             name="email"
-                                            className="w-full px-3 py-1 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d]"
+                                            className="w-full px-3 py-0 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d]"
                                             placeholder="Your Email"
                                             required
                                             value={formValues.email}
@@ -362,7 +362,7 @@ const Contact = () => {
                                         <textarea
                                             id="message"
                                             name="message"
-                                            className="w-full px-3 py-1 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d] 2xl:hidden"
+                                            className="w-full px-3 py-0 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d] 2xl:hidden"
                                             placeholder="Your Message"
                                             rows={3}
                                             required
@@ -375,7 +375,7 @@ const Contact = () => {
                                         <textarea
                                             id="message"
                                             name="message"
-                                            className="w-full px-3 py-1 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d] hidden 2xl:block"
+                                            className="w-full px-3 py-0 border lg:border-2 border-[#c9111d] rounded-none focus:outline-none focus:border-[#c9111d] hidden 2xl:block"
                                             placeholder="Your Message"
                                             rows={6}
                                             required
@@ -384,21 +384,15 @@ const Contact = () => {
                                         ></textarea>
                                     </div>
                                     {/* Buttons */}
-                                    <button
-                                        type="submit"
-                                        ref={sendButtonRefLarge}
-                                        className="px-3 py-1 bg-red-600 text-white border border-transparent hover:bg-white hover:text-red-600 hover:border-red-600 transition-colors duration-300"
-                                        onClick={() => {
-                                            anime({
-                                                targets: sendButtonRefLarge.current,
-                                                scale: [1, 1.2, 1],
-                                                duration: 300,
-                                                easing: 'easeInOutSine',
-                                            });
-                                        }}
-                                    >
-                                        Send
-                                    </button>
+                                    <div className="flex flex-row items-center z-10">
+                                        {/* Send Button */}
+                                        <button
+                                            type="submit"
+                                            className="px-3 py-1 bg-[#c9111d] text-white rounded-2xl hover:bg-white hover:text-[#c9111d] hover:border-2 hover:border-[#c9111d] transition-colors duration-300 font-bold tracking-wider"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -408,10 +402,10 @@ const Contact = () => {
                             <div className="flex flex-row h-full w-full">
 
                                 <div className="h-full w-full flex flex-col items-center justify-center text-[#c9111d] gap-0">
-                                    <div className="flex flex-row items-center justify-between gap-6">
+                                    <div className="flex flex-row items-center justify-between gap-6 2xl:gap-24">
                                         {/* TikTok Icon */}
                                         <div
-                                            className="flex items-center justify-center w-10 h-10"
+                                            className="flex items-center justify-center w-10 h-10 2xl:w-16 2xl:h-16"
                                             ref={tiktokRef}
                                             onMouseEnter={() => handleMouseEnter(tiktokRef.current)}
                                             onMouseLeave={() => handleMouseLeave(tiktokRef.current)}
@@ -424,7 +418,7 @@ const Contact = () => {
                                         </div>
                                         {/* LinkedIn Icon */}
                                         <div
-                                            className="flex items-center justify-center w-10 h-10"
+                                            className="flex items-center justify-center w-10 h-10 2xl:w-16 2xl:h-16"
                                             ref={linkedinRef}
                                             onMouseEnter={() => handleMouseEnter(linkedinRef.current)}
                                             onMouseLeave={() => handleMouseLeave(linkedinRef.current)}
@@ -437,7 +431,7 @@ const Contact = () => {
                                         </div>
                                         {/* Instagram Icon */}
                                         <div
-                                            className="flex items-center justify-center w-10 h-10"
+                                            className="flex items-center justify-center w-10 h-10 2xl:w-16 2xl:h-16"
                                             ref={instagramRef}
                                             onMouseEnter={() => handleMouseEnter(instagramRef.current)}
                                             onMouseLeave={() => handleMouseLeave(instagramRef.current)}
@@ -450,7 +444,7 @@ const Contact = () => {
                                         </div>
                                     </div>
                                     <div
-                                        className="text-[#212121] font-[900] tracking-wider text-[2.25rem]"
+                                        className="text-[#212121] font-[900] tracking-wider text-[2.25rem] 2xl:text-[4rem]"
                                         ref={stayTunedRef}
                                     >
                                         STAY TUNED
@@ -540,9 +534,11 @@ const Contact = () => {
                                     className="px-4 py-2 bg-red-600 text-white rounded-none hover:bg-red-700 transition-colors duration-300 font-bold tracking-wider"
                                     onClick={() => {
                                         setIsDrawerOpen(false);
-                                        if (formRef.current) {
-                                            formRef.current.reset();
-                                        }
+                                        setFormValues({
+                                            name: "",
+                                            email: "",
+                                            message: "",
+                                        });
                                     }}
                                 >
                                     Cancel
