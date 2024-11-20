@@ -161,11 +161,16 @@ const AvailableLogistics = () => {
                             className="text-transparent text-stroke-2 text-stroke-customRed font-bold text-[80px] lg:text-[120px]"
                             style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
-                            [
+                            <img
+                                // ref={leftBracketRef}
+                                src="/images/brackets/red-outline-bracket.png"
+                                alt="Red outline bracket"
+                                className={`h-20 lg:h-72 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
+                            />
                         </p>
                         <p
                             ref={businessTextRef}
-                            className="mt-5 text-white text-[20px] lg:text-[50px] max-lg:mb-2"
+                            className="text-white text-[20px] lg:text-[50px]"
                         >
                             {animationsEnabled ? '' : "LET'S TALK BUSINESS"}
                         </p>
@@ -174,7 +179,12 @@ const AvailableLogistics = () => {
                             className="text-transparent text-stroke-2 text-stroke-customRed font-bold text-[80px] lg:text-[120px]"
                             style={{ opacity: animationsEnabled ? 0 : 1 }}
                         >
-                            ]
+                            <img
+                                // ref={rightBracketRef}
+                                src="/images/brackets/red-outline-bracket.png"
+                                alt="Red outline bracket"
+                                className={`rotate-180 h-20 lg:h-72 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
+                            />
                         </p>
                     </div>
                     <div
