@@ -20,6 +20,9 @@ const AboutUs = () => {
     const entryAnimationRef = useRef<AnimeTimelineInstance | null>(null);
     const exitAnimationRef = useRef<AnimeTimelineInstance | null>(null);
     const animationsActive = useRef(false);
+    const bracketsRefMobile = useRef(null);
+    const brandNeedsTextRefMobile = useRef(null);
+    const subBrandNeedsTextRefMobile = useRef(null);
 
     // Effects
     useEffect(() => {
@@ -45,6 +48,13 @@ const AboutUs = () => {
                         translateX: ['100%', '0%'],
                         duration: 800,
                     })
+                    // Animate the "ABOUT US" tag
+                    .add({
+                        targets: aboutUsTagRef.current,
+                        opacity: [0, 1],
+                        translateX: ['100%', '0%'],
+                        duration: 800,
+                    }, '-=600') // Start 600ms before the previous animation ends
                     // Animate the "R" logo dropping down
                     .add({
                         targets: rLogoRef.current,
@@ -60,13 +70,6 @@ const AboutUs = () => {
                         opacity: [0, 0.5],
                         duration: 800,
                     }, '-=600') // Start 600ms before the previous animation ends
-                    // Animate the "ABOUT US" tag
-                    .add({
-                        targets: aboutUsTagRef.current,
-                        opacity: [0, 1],
-                        translateX: ['100%', '0%'],
-                        duration: 800,
-                    })
                     // Animate the brackets and text
                     .add({
                         targets: bracketsRef.current,
@@ -82,6 +85,24 @@ const AboutUs = () => {
                     })
                     .add({
                         targets: subBrandNeedsTextRef.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    })
+                    .add({
+                        targets: bracketsRefMobile.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    }, '-=1200')
+                    .add({
+                        targets: brandNeedsTextRefMobile.current,
+                        opacity: [0, 1],
+                        translateY: ['50%', '0%'],
+                        duration: 400,
+                    })
+                    .add({
+                        targets: subBrandNeedsTextRefMobile.current,
                         opacity: [0, 1],
                         translateY: ['50%', '0%'],
                         duration: 400,
@@ -184,7 +205,7 @@ const AboutUs = () => {
     return (
         <div className="relative h-full w-full flex flex-col">
             <Navigation />
-            <div className="w-full h-[10%] bg-white hidden lg:block"></div>
+            <div className="w-full h-[10%] bg-white hidden lg:block lg:mt-32"></div>
             <div className="relative flex flex-col items-center justify-center h-full bg-white w-full">
                 <div
                     ref={greetingAreaRef}
@@ -192,18 +213,19 @@ const AboutUs = () => {
                     style={{
                         backgroundImage: "url('/images/bg/who-we-are-page-warehouse.jpg')",
                         backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                     }}
                 >
                     {/* Meeting You Section */}
                     <div className="flex flex-col w-full h-full">
                         <div
                             ref={meetingYouRef}
-                            className="relative w-4/5 lg:w-1/2 h-2/5 text-center flex flex-col justify-center items-center bg-customRed opacity-0 translate-x-full"
+                            className="absolute lg:-top-5 w-3/5 lg:w-2/5 h-2/5 text-center flex flex-col justify-center items-center bg-customRed opacity-0 translate-x-full"
                             style={{
                                 clipPath: 'polygon(0 0, 88% 0, 100% 100%, 0 100%)',
                             }}
                         >
-                            <div className="flex flex-col gap-2 leading-tight tracking-widest md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white font-[900] lg:text-[80px] md:text-[60px] text-[32px]">
+                            <div className="flex flex-col gap-2 leading-tight tracking-widest md:tracking-widest lg:tracking-extra-wide w-full h-full p-5 lg:pl-10 items-start justify-center text-white font-[900] lg:text-[3rem] text-[2rem] 2xl:text-[3.5rem]">
                                 <p>GREAT</p>
                                 <p>MEETING</p>
                                 <p>YOU!</p>
@@ -214,7 +236,7 @@ const AboutUs = () => {
                     {/* About Us Tag */}
                     <div
                         ref={aboutUsTagRef}
-                        className="absolute bottom-[15%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20 opacity-0 translate-x-full"
+                        className="absolute bottom-[35%] 2xl:bottom-[25%] right-0 flex flex-col justify-center h-1/5 w-full bg-transparent z-20 opacity-0 translate-x-full"
                     >
                         <div className="flex flex-col items-end justify-center px-2 lg:gap-3">
                             <div className="flex flex-row gap-2 lg:gap-3 items-center">
@@ -222,16 +244,16 @@ const AboutUs = () => {
                                     <img
                                         src="/images/logos/gray-brackets-r.png"
                                         alt="Gray brackets logo"
-                                        className="w-10 lg:w-14 h-10 lg:h-14"
+                                        className="w-10 lg:w-12 h-10 lg:h-12 lg:hidden"
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-[900] tracking-wider text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">
+                                    <p className="text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-[900] tracking-wider text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px]">
                                         ABOUT US
                                     </p>
                                 </div>
                             </div>
-                            <div className="text-end relative z-20 text-black text-[12px] lg:text-[18px] font-bold text-shadow">
+                            <div className="text-end relative z-20 text-black text-[12px] lg:text-[16px] font-bold leading-4">
                                 <p>We are your one-stop solution for brand services, offering</p>
                                 <p>end-to-end support from concept creation to execution</p>
                                 <p>including logistics and transport.</p>
@@ -244,24 +266,21 @@ const AboutUs = () => {
 
                     {/* Gradient Overlays */}
                     <div
-                        className="absolute bottom-0 left-0 w-full h-[35%]"
+                        className="absolute bottom-0 left-0 w-full h-[55%]"
                         style={{
                             background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))',
                         }}
                     />
                     <div
-                        className="absolute bottom-0 left-0 w-full h-[45%]"
+                        className="absolute bottom-0 left-0 w-full h-[75%]"
                         style={{
                             background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))',
                         }}
                     />
                 </div>
-            </div>
 
-            {/* R Logo and Shadow */}
-            <div className="w-full h-[50%] bg-white relative">
-                <div className="relative w-full h-full justify-center items-center gap-0 flex flex-col p-1">
-                    {/* R Logo */}
+                {/* Logo Area */}
+                <div className="hidden absolute bottom-0 w-2/5 h-[45%] 2xl:h-[35%] lg:flex flex-col items-center gap-4">
                     <div
                         ref={rLogoRef}
                         className="w-10 h-10 lg:w-16 lg:h-16 opacity-0 translate-y-full"
@@ -273,13 +292,12 @@ const AboutUs = () => {
                         <img
                             src="/images/logos/gray-brackets-r.png"
                             alt="Gray brackets logo"
-                            className="w-10 h-10 lg:w-16 lg:h-16"
+                            className="w-10 h-10 lg:w-12 2xl:w-16 lg:h-12 2xl:h-16"
                         />
                     </div>
-                    {/* Shadow */}
                     <div
                         ref={rShadowRef}
-                        className="absolute top-[20%] lg:top-[25%] w-14 h-8 lg:w-24 lg:h-14 opacity-0 scale-y-0"
+                        className="absolute top-[20%] lg:top-[25%] w-14 h-8 lg:w-24 lg:h-8 opacity-0 scale-y-0 max-2xl:mr-3"
                         style={{
                             borderRadius: '50%',
                             background: 'black',
@@ -288,10 +306,9 @@ const AboutUs = () => {
                             transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
                         }}
                     />
-                    {/* Brackets and Text */}
                     <div
                         ref={bracketsRef}
-                        className="flex flex-row gap-1 w-full px-6 h-full items-center justify-center leading-tight opacity-0 translate-y-full mt-10"
+                        className="flex flex-row gap-1 w-full h-full items-center justify-center leading-tight opacity-0 translate-y-full"
                         style={{
                             transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
                         }}
@@ -300,20 +317,20 @@ const AboutUs = () => {
                             <img
                                 src="/images/brackets/gray-outline-bracket.png"
                                 alt="Gray bracket"
-                                className="w-32 h-auto lg:w-44 lg:h-auto"
+                                className="h-28 w-auto lg:h-32 2xl:h-48 lg:w-14 2xl:w-16"
                             />
                         </div>
-                        <div className="relative flex flex-col gap-1 lg:gap-2 text-black">
+                        <div className="relative flex flex-col gap-1 lg:gap-1 text-black">
                             <div
                                 ref={brandNeedsTextRef}
-                                className="flex flex-col font-bold text-[16px] lg:text-[32px] tracking-widest text-center text-shadow-black opacity-0 translate-y-1/2"
+                                className="flex flex-col text-[1rem] lg:text-[1.25rem] 2xl:text-[2rem] tracking-wider text-center opacity-0 translate-y-1/2 font-[900]"
                             >
                                 <p>EVERYTHING</p>
                                 <p>YOUR BRAND NEEDS</p>
                             </div>
                             <div
                                 ref={subBrandNeedsTextRef}
-                                className="font-bold text-[10px] lg:text-[16px] text-center w-4/5 m-auto opacity-0 translate-y-1/2"
+                                className="font-[500] text-[0.5rem] lg:text-[0.75rem] 2xl:text-[1rem] text-center w-4/5 m-auto opacity-0 translate-y-1/2"
                             >
                                 <p>
                                     The go-to partner for brands seeking comprehensive and innovative branding solutions,
@@ -325,13 +342,60 @@ const AboutUs = () => {
                             <img
                                 src="/images/brackets/gray-outline-bracket.png"
                                 alt="Gray bracket"
-                                className="w-32 h-auto lg:w-44 lg:h-auto"
+                                className="h-28 w-auto lg:h-32 2xl:h-48 lg:w-14 2xl:w-16"
+                                style={{ transform: 'rotate(180deg)' }}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Logo Area (Mobile) */}
+                <div className="absolute bottom-0 w-4/5 h-[35%] flex flex-col items-center gap-2 lg:hidden">
+                    <div
+                        ref={bracketsRefMobile}
+                        className="flex flex-row gap-1 w-full h-full items-center justify-center leading-tight opacity-0 translate-y-full"
+                        style={{
+                            transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                        }}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <img
+                                src="/images/brackets/gray-outline-bracket.png"
+                                alt="Gray bracket"
+                                className="h-28 w-12"
+                            />
+                        </div>
+                        <div className="relative flex flex-col gap-1 lg:gap-1 text-black">
+                            <div
+                                ref={brandNeedsTextRefMobile}
+                                className="flex flex-col text-[1rem] lg:text-[1.25rem] tracking-wider text-center opacity-0 translate-y-1/2 font-[900]"
+                            >
+                                <p>EVERYTHING</p>
+                                <p>YOUR BRAND NEEDS</p>
+                            </div>
+                            <div
+                                ref={subBrandNeedsTextRefMobile}
+                                className="font-[500] text-[0.5rem] lg:text-[0.75rem] text-center w-4/5 m-auto opacity-0 translate-y-1/2 max:lg-hidden"
+                            >
+                                <p>
+                                    The go-to partner for brands seeking comprehensive and innovative branding solutions,
+                                    given the fact that we can literally provide the full package of services.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <img
+                                src="/images/brackets/gray-outline-bracket.png"
+                                alt="Gray bracket"
+                                className="h-28 w-12"
                                 style={{ transform: 'rotate(180deg)' }}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
     );
 };

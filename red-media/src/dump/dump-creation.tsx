@@ -29,7 +29,7 @@ const Creation = () => {
                 >
                     {/* Content inside redElement */}
                     <div className="relative w-[95%] h-full flex flex-row justify-between items-center py-1 md:py-2 lg:py-4 xl:py-5 px-1 md:px-2 lg:px-4 xl:px-5">
-                        <img src={whiteOutlineBracket} alt="White bracket" className="h-4/5"/>
+                        <img src={whiteOutlineBracket} alt="White bracket" className="h-4/5" />
                         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 flex flex-col items-end justify-center gap-5">
                             <p className="text-[24px] md:text-[60px] lg:text-[60px] xl:text-[80px] font-bold mr-3 lg:mr-8 tracking-extra-wide md:tracking-extra-wider text-outline xl:tracking-extra-widest text-shadow">
                                 WHERE
@@ -101,3 +101,14 @@ const Creation = () => {
 
 export default Creation;
 
+{/* R Logo and Shadow */ }
+<div className="w-full h-[35%] bg-white relative">
+    <div className="relative w-full h-full justify-center items-center gap-0 flex flex-col p-1">
+        {/* R Logo */}
+
+        {/* Shadow */}
+
+        {/* Brackets and Text */}
+        
+    </div>
+</div>
