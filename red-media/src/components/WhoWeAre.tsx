@@ -6,11 +6,16 @@ import { useRepetitions } from "@hooks/useRepetitions";
 // import { useBeamAnimation } from "@hooks/useBeamAnimation";
 import { useSectionStore } from "@store/useSectionStore";
 import anime from "animejs";
+import { useNavigate } from "react-router-dom";
 
 const WhoWeAre = () => {
+    // Navigation
+    const navigate = useNavigate();
+
     // Store
     const currentSection = useSectionStore((state) => state.currentSection);
     const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
+    const setCurrentSection = useSectionStore((state) => state.setCurrentSection);
 
     // Refs
     const animatedBarRef = useRef<HTMLDivElement>(null);
@@ -95,6 +100,22 @@ const WhoWeAre = () => {
         createFlickerEffect(sectionTitleWhoWeAre.current, 1, reduceTime(5200));
         createFlickerEffect(sectionTitleWhatWeDo.current, 0, reduceTime(8200));
     }, [currentSection]);
+
+    const handleAboutUseMore = () => {
+        setCurrentSection(1);
+        navigate('/who-we-are');
+    };
+
+    const handleWhoWeAreMore = () => {
+        setCurrentSection(2);
+        navigate('/who-we-are');
+    };
+
+    const handleWhatWeDoMore = () => {
+        setCurrentSection(1);
+        navigate('/who-we-are');
+    }
+
     return (
         <div
             className="relative flex flex-col items-center justify-center w-full h-full"
@@ -140,12 +161,12 @@ const WhoWeAre = () => {
                 {/* Bg image */}
                 <div ref={aboutUsImage} className="absolute h-[70%] w-full bottom-0 left-0">
                     <div className="absolute w-1/3 h-3/5 top-0 right-0 flex flex-col items-center justify-center bg-transparent">
-                        <button onClick={() => console.log('clicked')}>
+                        <button onClick={handleAboutUseMore}>
                             <div
-                                className="text-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-red-50"
+                                className="text-customRed hover:text-white hover:bg-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105"
                                 style={{
-                                    fontSize: 'clamp(1rem, 2vw, 2.5rem)',
-                                    textShadow: '2px 2px 4px rgba(150, 0, 0, 0.5)',
+                                    fontSize: 'clamp(1rem, 2vw, 2rem)',
+                                    padding: '0.25rem 1.5rem',
                                     transition: 'text-shadow 0.3s ease-in-out',
                                 }}
                             >
@@ -156,8 +177,8 @@ const WhoWeAre = () => {
                 </div>
                 {/* Section title */}
                 <div ref={sectionTitleAboutUs} className="absolute flex flex-row justify-center gap-1 xl:gap-5 items-center top-0 right-0 h-[30%] w-2/5 bg-[#212121]">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
-                    <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">ABOUT US</p>
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-10 2xl:h-12 w-auto" />
+                    <p className="text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[3rem] 2xl:text-[4rem]">ABOUT US</p>
                 </div>
             </div>
             {/* Who we are */}
@@ -175,12 +196,12 @@ const WhoWeAre = () => {
                 {/* Bg image */}
                 <div ref={whoeWeAreImage} className="absolute h-[70%] w-full bottom-0 left-0 bg-transparent">
                     <div className="absolute w-1/3 h-3/5 top-0 left-0 flex flex-col items-center justify-center bg-transparent">
-                        <button onClick={() => console.log('clicked')}>
+                        <button onClick={handleWhoWeAreMore}>
                             <div
-                                className="text-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-red-50"
+                                className="text-customRed hover:text-white hover:bg-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105"
                                 style={{
-                                    fontSize: 'clamp(1rem, 2vw, 2.5rem)',
-                                    textShadow: '2px 2px 4px rgba(150, 0, 0, 0.5)',
+                                    fontSize: 'clamp(1rem, 2vw, 2rem)',
+                                    padding: '0.25rem 1.5rem',
                                     transition: 'text-shadow 0.3s ease-in-out',
                                 }}
                             >
@@ -191,12 +212,12 @@ const WhoWeAre = () => {
                 </div>
                 {/* Section title */}
                 <div ref={sectionTitleWhoWeAre} className="absolute flex flex-row justify-center md:items-center gap-1 xl:gap-5 top-0 left-0 h-[30%] w-2/5 bg-[#212121] py-1">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
-                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHO WE ARE</p>
-                    <div className="flex md:hidden flex-col gap-1 leading-none">
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHO</p>
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
-                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-end">ARE</p>
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-10 2xl:h-12 w-auto" />
+                    <p className="hidden md:block text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[3rem] 2xl:text-[4rem]">WHO WE ARE</p>
+                    <div className="flex md:hidden flex-col gap-1 leading-none text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-start">
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-start">WHO</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-center">WE</p>
+                        <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-end">ARE</p>
                     </div>
                 </div>
             </div>
@@ -216,12 +237,12 @@ const WhoWeAre = () => {
                 {/* Bg image */}
                 <div ref={whatWeDoImage} className="absolute h-[70%] w-full bottom-0 left-0">
                     <div className="absolute w-1/3 h-3/5 top-0 right-0 flex flex-col items-center justify-center bg-transparent">
-                        <button onClick={() => console.log('clicked')}>
+                        <button onClick={handleWhatWeDoMore}>
                             <div
-                                className="text-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-red-50"
+                                className="text-customRed hover:text-white hover:bg-customRed rounded-full bg-white px-5 font-bold text-center border border-customRed transition-transform duration-300 ease-in-out hover:scale-105"
                                 style={{
-                                    fontSize: 'clamp(1rem, 2vw, 2.5rem)',
-                                    textShadow: '2px 2px 4px rgba(150, 0, 0, 0.5)',
+                                    fontSize: 'clamp(1rem, 2vw, 2rem)',
+                                    padding: '0.25rem 1.5rem',
                                     transition: 'text-shadow 0.3s ease-in-out',
                                 }}
                             >
@@ -232,8 +253,8 @@ const WhoWeAre = () => {
                 </div>
                 {/* Section title */}
                 <div ref={sectionTitleWhatWeDo} className="absolute flex flex-row justify-center md:items-center gap-1 xl:gap-5 top-0 right-0 h-[30%] w-2/5 bg-[#212121] py-1">
-                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-14 xl:h-16 w-auto" />
-                    <p className="hidden md:block text-stroke-1 md:text-stroke-2 text-stroke-customRed text-transparent max-md:text-customRed font-bold text-[18px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md">WHAT WE DO</p>
+                    <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-10 2xl:h-12 w-auto" />
+                    <p className="hidden md:block text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[18px] md:text-[36px] lg:text-[3rem] 2xl:text-[4rem]">WHAT WE DO</p>
                     <div className="flex md:hidden flex-col gap-1 leading-none">
                         <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-start">WHAT</p>
                         <p className="text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[16px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-shadow-md text-center">WE</p>
