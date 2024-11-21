@@ -73,8 +73,6 @@ const useScrollControl = () => {
         const onTouchMove = (event: TouchEvent) => {
             if (isScrolling) return; // Ignore touch events if scrolling is in progress
 
-            event.preventDefault(); // Prevent default touch behavior
-
             const currentY = event.touches[0].clientY;
             const direction = startY - currentY > 0 ? 1 : -1; // Determine touch scroll direction
             handleScroll(direction);
