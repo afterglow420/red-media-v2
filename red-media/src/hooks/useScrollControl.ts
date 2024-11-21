@@ -3,95 +3,127 @@ import { SCROLL_DURATION } from '@lib/constants/constants-animations';
 import { useSectionStore } from '@store/useSectionStore';
 import { useEffect, useCallback, useRef } from 'react';
 
+// Throttle function to limit the rate at which a function can fire.
+const throttle = (func: (...args: any[]) => void, limit: number) => {
+    let inThrottle: boolean = false;
+    return function (this: any, ...args: any[]) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => (inThrottle = false), limit);
+        }
+    };
+};
+
 const SCROLL_TIMEOUT = SCROLL_DURATION;
 
 const useScrollControl = () => {
     // Destructure necessary state and actions from the store
     const {
-        currentSection,      // Current active section
-        setCurrentSection,   // Function to update the current section
-        totalSections,       // Total number of sections
-        isScrolling,         // Flag to indicate if scrolling is in progress
-        setIsScrolling       // Function to set the scrolling flag
+        currentSection,    // Current active section
+        setCurrentSection, // Function to update the current section
+        totalSections,     // Total number of sections
+        isScrolling,       // Flag to indicate if scrolling is in progress
+        setIsScrolling     // Function to set the scrolling flag
     } = useSectionStore();
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const startYRef = useRef<number>(0); // To track touch start position
 
     // Handle scroll direction
     const handleScroll = useCallback(
         (direction: number) => {
-            if (isScrolling) return; // Prevent handling scroll if already scrolling
+            if (isScrolling) {
+                console.log('Currently scrolling, ignoring scroll event.');
+                return; // Prevent handling scroll if already scrolling
+            }
 
             // Determine if scrolling in the desired direction is possible
             if (
                 (direction === 1 && currentSection >= totalSections) || // At last section and trying to scroll down
                 (direction === -1 && currentSection <= 1)             // At first section and trying to scroll up
             ) {
+                console.log('Scroll direction out of bounds, ignoring.');
                 return; // Do not scroll further in this direction
             }
 
             // Update the current section based on direction
-            setCurrentSection((prevSection) => {
-                let nextSection = prevSection + direction;
-                // Clamp the next section within valid bounds
-                if (nextSection < 1) nextSection = 1;
-                if (nextSection > totalSections) nextSection = totalSections;
-                return nextSection;
-            });
+            const nextSection = Math.min(Math.max(currentSection + direction, 1), totalSections);
+            console.log(`Changing section from ${currentSection} to ${nextSection}`);
+            setCurrentSection(nextSection);
 
             setIsScrolling(true); // Indicate that scrolling has started
+            console.log('Scrolling started.');
 
             // Reset the scrolling flag after the timeout
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
             timeoutRef.current = setTimeout(() => {
                 setIsScrolling(false);
-            }, SCROLL_TIMEOUT - 200);
+                console.log('Scrolling ended.');
+            }, SCROLL_TIMEOUT - 200); // Adjust as necessary
         },
         [setCurrentSection, totalSections, isScrolling, setIsScrolling, currentSection]
     );
 
     useEffect(() => {
-        let startY = 0; // Initial touch position for touch devices
+        // Throttled version of handleScroll to prevent excessive calls on touchmove and wheel
+        const throttledHandleScroll = throttle(handleScroll, 500); // Adjust throttle limit as needed
 
-        // Handle wheel scroll events
+        // Handle wheel scroll events for desktop
         const onWheel = (event: WheelEvent) => {
-            if (isScrolling) return; // Ignore scroll events if scrolling is in progress
+            if (isScrolling) {
+                console.log('Currently scrolling, ignoring wheel event.');
+                return; // Ignore wheel events if scrolling is in progress
+            }
 
-            event.preventDefault(); // Prevent default scrolling behavior
+            // Prevent default scrolling behavior to implement custom scroll
+            event.preventDefault();
 
             const direction = event.deltaY > 0 ? 1 : -1; // Determine scroll direction
-            handleScroll(direction);
+            console.log(`Wheel event detected. Direction: ${direction}`);
+            throttledHandleScroll(direction);
         };
 
-        // Handle touch start events
+        // Handle touch start events for touch devices
         const onTouchStart = (event: TouchEvent) => {
-            if (isScrolling) return; // Ignore touch events if scrolling is in progress
+            if (isScrolling) {
+                console.log('Currently scrolling, ignoring touchstart event.');
+                return; // Ignore touchstart events if scrolling is in progress
+            }
 
-            startY = event.touches[0].clientY; // Record the initial touch position
+            startYRef.current = event.touches[0].clientY; // Record the initial touch position
+            console.log(`Touch start Y position: ${startYRef.current}`);
         };
 
-        // Handle touch move events
+        // Handle touch move events for touch devices
         const onTouchMove = (event: TouchEvent) => {
-            if (isScrolling) return; // Ignore touch events if scrolling is in progress
+            if (isScrolling) {
+                console.log('Currently scrolling, ignoring touchmove event.');
+                return; // Ignore touchmove events if scrolling is in progress
+            }
 
             const currentY = event.touches[0].clientY;
-            const direction = startY - currentY > 0 ? 1 : -1; // Determine touch scroll direction
-            handleScroll(direction);
+            const direction = startYRef.current - currentY > 0 ? 1 : -1; // Determine touch scroll direction
+            console.log(`Touch move detected. Direction: ${direction}`);
+            throttledHandleScroll(direction);
         };
 
-        // Disable native scrolling for the entire document
-        document.body.style.overflow = 'hidden';
         // Add event listeners for wheel and touch events
-        document.addEventListener('wheel', onWheel, { passive: false });
-        document.addEventListener('touchstart', onTouchStart, { passive: false });
-        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('wheel', onWheel, { passive: false }); // For desktop
+        document.addEventListener('touchstart', onTouchStart, { passive: true }); // For touch devices
+        document.addEventListener('touchmove', onTouchMove, { passive: false }); // For touch devices
 
-        // Cleanup event listeners and reset styles on unmount
+        console.log('Custom scroll event listeners added for all devices.');
+
+        // Cleanup event listeners on unmount
         return () => {
-            document.body.style.overflow = 'auto';
             document.removeEventListener('wheel', onWheel);
             document.removeEventListener('touchstart', onTouchStart);
             document.removeEventListener('touchmove', onTouchMove);
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            console.log('Custom scroll event listeners removed and timeouts cleared.');
         };
     }, [handleScroll, isScrolling]);
 

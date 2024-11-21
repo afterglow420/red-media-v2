@@ -10,6 +10,7 @@ const WhoWeArePage = () => {
     // Store
     const setTotalSections = useSectionStore((state) => state.setTotalSections);
     const totalSections = useSectionStore((state) => state.totalSections);
+    
     // Hooks 
     useAnimateScroll();
     useScrollControl();
