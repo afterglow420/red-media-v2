@@ -64,7 +64,7 @@ const ProcessCreation = () => {
     return (
         <div className="relative h-full w-full flex flex-col">
             <Navigation />
-            <div className="flex flex-col items-center justify-center h-[15%] bg-white text-black">
+            <div className="flex flex-col items-center justify-center h-[15%] bg-white text-black 2xl:hidden">
                 <div className="flex flex-row items-center gap-5 lg:gap-5">
                     <img
                         src="/images/logos/gray-brackets-r.png"
@@ -72,7 +72,7 @@ const ProcessCreation = () => {
                         className="w-12 h-12 lg:w-20 lg:h-20"
                     />
                     <div className="flex flex-col items-center justify-center leading-none">
-                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
+                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold ">
                             PROCESS &
                         </p>
                         <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
@@ -112,7 +112,7 @@ const ProcessCreation = () => {
 
                     {/* Text */}
                     <div className={`flex flex-col tracking-widest items-start justify-center absolute translate-y-[100%] -bottom-0 left-0 h-auto w-full px-1 lg:px-10 bg-transparent text-center`}>
-                        <p className="text-black text-[12px] lg:text-[24px]">
+                        <p className="text-black text-[12px] lg:text-[1rem]">
                             {detailedInfo[currentIndex]}
                         </p>
                     </div>
@@ -128,7 +128,7 @@ const ProcessCreation = () => {
                 {/* Section Navigation */}
                 <div
                     ref={buttonsRef}
-                    className="absolute flex flex-row justify-center items-center gap-2 top-5 left-[50%] translate-x-[-50%] h-10 w-full z-10"
+                    className="absolute flex flex-row justify-center items-center gap-2 max-lg:top-5 lg:bottom-5 left-[50%] translate-x-[-50%] h-10 w-full z-10"
                 >
                     <button
                         onClick={handlePrev}

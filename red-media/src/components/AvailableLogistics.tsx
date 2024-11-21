@@ -1,8 +1,12 @@
 import { useSectionStore } from "@store/useSectionStore";
 import anime from "animejs";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AvailableLogistics = () => {
+    // Navigation
+    const navigate = useNavigate();
+
     // Store 
     const currentSection = useSectionStore((state) => state.currentSection);
     const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
@@ -153,7 +157,7 @@ const AvailableLogistics = () => {
                     />
                 </div>
             </div>
-            <div className="w-full h-[20%] flex flex-col items-center justify-center text-white">
+            <div className="w-full h-[20%] flex flex-col items-center justify-center text-white p-1">
                 <div className="flex flex-col items-center justify-center w-full h-1/5">
                     <div className="flex flex-row items-center justify-center">
                         <p
@@ -165,7 +169,7 @@ const AvailableLogistics = () => {
                                 // ref={leftBracketRef}
                                 src="/images/brackets/red-outline-bracket.png"
                                 alt="Red outline bracket"
-                                className={`h-20 lg:h-72 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
+                                className={`h-16 lg:h-20 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
                             />
                         </p>
                         <p
@@ -183,7 +187,7 @@ const AvailableLogistics = () => {
                                 // ref={rightBracketRef}
                                 src="/images/brackets/red-outline-bracket.png"
                                 alt="Red outline bracket"
-                                className={`rotate-180 h-20 lg:h-72 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
+                                className={`rotate-180 h-16 lg:h-20 w-auto opacity-0 ${false ? "opacity-0" : "opacity-100"}`}
                             />
                         </p>
                     </div>
@@ -193,7 +197,7 @@ const AvailableLogistics = () => {
                     >
                         <button
                             className="bg-customRed rounded-2xl text-white text-sm lg:text-lg lg:rounded-3xl px-2 py-1 lg:px-4 lg:py-2 text-center cursor-pointer hover:bg-white hover:text-customRed transition-colors duration-300"
-                            onClick={() => console.log("LET'S TALK BUSINESS button clicked")}
+                            onClick={() => navigate('/contact')}
                         >
                             <p className="text-[12px] md:text-[16px] lg:text-[20px] xl:text-[24px] font-bold tracking-extra-wide">
                                 LET'S WORK TOGETHER
