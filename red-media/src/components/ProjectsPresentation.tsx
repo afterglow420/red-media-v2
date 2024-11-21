@@ -93,8 +93,8 @@ const ProjectsPresentation = () => {
     }, [currentSection, animationsEnabled]);
 
     return (
-        <div className="flex flex-col h-full w-full">
-            {currentSection === 1 && <Navigation />}
+        <div className="relative flex flex-col h-full w-full">
+            <Navigation />
             <div className="flex flex-col items-center justify-center h-full w-full lg:mt-32">
                 {/* Animated Paragraphs */}
                 <div className="flex flex-col items-center justify-center text-center h-full w-full leading-loose text-shadow-white">

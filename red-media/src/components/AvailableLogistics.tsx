@@ -83,6 +83,14 @@ const AvailableLogistics = () => {
                 duration: 500,
             });
     }, [currentSection, animationsEnabled]); // Dependencies
+
+    // Store
+    const { setCurrentSection } = useSectionStore();
+
+    // Handlers and Functions
+    const handleBackToTop = () => {
+        setCurrentSection(1);
+    };
     return (
         <div className="relative flex flex-col justify-center items-center h-full w-full pb-5 lg:pb-8">
             <div className="relative border-4 border-b-white border-r-white border-l-white border-t-0 w-full h-full flex flex-col items-center justify-center bg-transparent">
@@ -206,6 +214,21 @@ const AvailableLogistics = () => {
                     </div>
                 </div>
             </div>
+            <button
+                onClick={handleBackToTop}
+                className="absolute bottom-5 left-0 z-30 bg-customRed text-white p-3 rounded-full shadow-lg hover:bg-white hover:text-customRed transition-colors duration-300"
+                aria-label="Back to Top"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 lg:h-6 lg:w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                </svg>
+            </button>
         </div>
     );
 };
