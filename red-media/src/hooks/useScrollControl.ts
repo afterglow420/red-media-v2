@@ -29,6 +29,7 @@ const useScrollControl = () => {
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const startYRef = useRef<number>(0); // To track touch start position
+    const threshold = 50; // Minimum swipe distance in pixels to trigger scroll
 
     // Handle scroll direction
     const handleScroll = useCallback(
@@ -62,14 +63,14 @@ const useScrollControl = () => {
             timeoutRef.current = setTimeout(() => {
                 setIsScrolling(false);
                 console.log('Scrolling ended.');
-            }, SCROLL_TIMEOUT - 200); // Adjust as necessary
+            }, SCROLL_TIMEOUT); // Use SCROLL_TIMEOUT without subtracting
         },
         [setCurrentSection, totalSections, isScrolling, setIsScrolling, currentSection]
     );
 
     useEffect(() => {
         // Throttled version of handleScroll to prevent excessive calls on touchmove and wheel
-        const throttledHandleScroll = throttle(handleScroll, 500); // Adjust throttle limit as needed
+        const throttledHandleScroll = throttle(handleScroll, 300); // Lower throttle limit for better responsiveness
 
         // Handle wheel scroll events for desktop
         const onWheel = (event: WheelEvent) => {
@@ -105,9 +106,19 @@ const useScrollControl = () => {
             }
 
             const currentY = event.touches[0].clientY;
-            const direction = startYRef.current - currentY > 0 ? 1 : -1; // Determine touch scroll direction
+            const deltaY = startYRef.current - currentY;
+            if (Math.abs(deltaY) < threshold) {
+                // Not enough movement to trigger scroll
+                console.log(`Touch move delta (${deltaY}px) below threshold (${threshold}px). Ignoring.`);
+                return;
+            }
+
+            const direction = deltaY > 0 ? 1 : -1; // Determine touch scroll direction
             console.log(`Touch move detected. Direction: ${direction}`);
             throttledHandleScroll(direction);
+
+            // Reset startYRef to prevent multiple triggers for a single swipe
+            startYRef.current = currentY;
         };
 
         // Add event listeners for wheel and touch events
