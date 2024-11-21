@@ -7,7 +7,7 @@ const AboutUs = () => {
     // Store
     const currentSection = useSectionStore((state) => state.currentSection);
     const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
-
+    const totalSections = useSectionStore((state) => state.totalSections);
     // Refs
     const greetingAreaRef = useRef(null);
     const meetingYouRef = useRef(null);
@@ -204,6 +204,20 @@ const AboutUs = () => {
 
     return (
         <div className="relative h-full w-full flex flex-col">
+            <div className='absolute top-50 left-50 text-black text-lg z-[100] flex flex-col'>
+                <p>
+                    {`Total Sections: ${totalSections}`}
+                </p>
+                <p>
+                    {`Current Section: ${currentSection}`}
+                </p>
+                <p>
+                    {`Animations Enabled: ${animationsEnabled}`}
+                </p>
+                <p>
+                    {`Animations Active: ${animationsActive.current}`}
+                </p>
+            </div>
             <Navigation />
             <div className="w-full h-[10%] bg-white hidden lg:block lg:mt-32"></div>
             <div className="relative flex flex-col items-center justify-center h-full bg-white w-full">
