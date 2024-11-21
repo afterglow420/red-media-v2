@@ -94,50 +94,50 @@ const ProjectsPresentation = () => {
 
     return (
         <div className="flex flex-col h-full w-full">
-            <Navigation />
-            <div className="flex flex-col items-center justify-center h-full w-full">
+            {currentSection === 1 && <Navigation />}
+            <div className="flex flex-col items-center justify-center h-full w-full lg:mt-32">
                 {/* Animated Paragraphs */}
                 <div className="flex flex-col items-center justify-center text-center h-full w-full leading-loose text-shadow-white">
                     <p
                         ref={(el) => (paragraphsRef.current[0] = el)}
-                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[2rem] xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[1.rem] 2xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     >
                         IN THE LAST 10 YEARS
                     </p>
                     <p
                         ref={(el) => (paragraphsRef.current[1] = el)}
-                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[2rem] xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[1.rem] 2xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     >
                         WE HAD THE CHANCE TO DELIVER AMAZING PROJECTS.
                     </p>
                     <p
                         ref={(el) => (paragraphsRef.current[2] = el)}
-                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[2rem] xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[1.rem] 2xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     >
                         BUT NOW IT'S TIME TO TAKE THE NEXT STEP
                     </p>
                     <p
                         ref={(el) => (paragraphsRef.current[3] = el)}
-                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[2rem] xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`text-white font-bold text-[1rem] md:text-[1.5rem] lg:text-[1.rem] 2xl:text-[2.5rem] pb-5 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     >
                         AND DELIVER:
                     </p>
                 </div>
 
                 {/* Animated Brackets and Main Text */}
-                <div className="flex flex-row items-center gap-0 h-2/5 w-full justify-center px-4">
+                <div className="flex flex-row items-center gap-0 h-2/5 w-full justify-center p-4">
                     {/* Left Bracket */}
                     <img
                         ref={leftBracketRef}
                         src="/images/brackets/white-outline-bracket.png"
                         alt="White outline bracket"
-                        className={`h-32 lg:h-72 w-auto opacity-0 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`h-32 lg:h-48 2xl:h-64 w-auto opacity-0 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     />
 
                     {/* "COMPLETE EXPERIENCES" Text */}
                     <p
                         ref={completeExperiencesRef}
-                        className={`text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[30px] md:text-[36px] lg:text-[44px] xl:text-[56px] text-shadow-md ${animationsEnabled ? "opacity-0" : "opacity-100"} text-center`}
+                        className={`text-stroke-1 md:text-stroke-2 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[30px] md:text-[36px] lg:text-[3rem] 2xl:text-[5rem] ${animationsEnabled ? "opacity-0" : "opacity-100"} text-center`}
                     >
                         {animationsEnabled ? "" : "COMPLETE EXPERIENCES"}
                     </p>
@@ -147,7 +147,7 @@ const ProjectsPresentation = () => {
                         ref={rightBracketRef}
                         src="/images/brackets/white-outline-bracket.png"
                         alt="White outline bracket"
-                        className={`rotate-180 h-32 lg:h-72 w-auto opacity-0 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
+                        className={`rotate-180 h-32 lg:h-48 2xl:h-64 w-auto opacity-0 ${animationsEnabled ? "opacity-0" : "opacity-100"}`}
                     />
                 </div>
 

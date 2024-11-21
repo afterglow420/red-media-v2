@@ -6,6 +6,7 @@ import { useSectionStore } from '@store/useSectionStore';
 const ProjectsDetailed = () => {
     // Store
     const currentSection = useSectionStore((state) => state.currentSection);
+    const animationsEnabled = useSectionStore((state) => state.animationsEnabled);
 
     // Create refs for each header element
     const redOutlineRef = useRef(null);
@@ -50,14 +51,12 @@ const ProjectsDetailed = () => {
                 easing: 'easeOutExpo',
                 duration: 800,
             }, '-=600'); // Start 200ms before the previous animation ends
-    }, [currentSection]);
+    }, [currentSection, animationsEnabled]);
 
     return (
         <div className="flex flex-col items-center justify-start w-full h-full bg-[#212121] pt-1">
             {/* Header Section */}
-            <div
-                className="flex flex-row items-center gap-2 justify-center h-[15%] w-full"
-            >
+            <div className="flex flex-row items-center gap-2 justify-center h-[15%] w-full">
                 <div
                     ref={whiteDivRef}
                     className="h-12 w-32 bg-white transform translate-x-[-100px] opacity-0"
@@ -87,7 +86,7 @@ const ProjectsDetailed = () => {
             {/* Brackets and Grid */}
             <div className="flex flex-col items-center justify-start w-full h-full gap-4 p-4">
                 {/* Optional Top Bracket */}
-                <div className="hidden lg:block">
+                <div className="hidden">
                     <img
                         src="/images/brackets/solid-red-bracket.png"
                         alt="Solid red bracket"
@@ -96,15 +95,15 @@ const ProjectsDetailed = () => {
                 </div>
 
                 {/* Project Items */}
-                <div className="flex flex-col items-center gap-5 w-full overflow-y-auto p-2">
+                {/* Updated to use grid layout with responsive columns */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-3 gap-5 w-full p-2">
                     {/* Map through projectsData */}
                     {projectsData.map((project, index) => (
                         <div
                             key={index}
                             className="relative flex flex-col items-center justify-center w-full bg-gray-800 border-2 border-customRed rounded-lg shadow-md p-4 transition-transform transform-gpu hover:scale-105 hover:shadow-xl hover:z-10"
                         >
-                            {/* @ts-ignore */}
-                            {project.videoUrl && project.videoUrl ? (
+                            {project.videoUrl ? (
                                 <video
                                     src={project.videoUrl}
                                     controls
@@ -115,13 +114,15 @@ const ProjectsDetailed = () => {
                                     <span className="text-gray-400">Video Coming Soon</span>
                                 </div>
                             )}
-                            <p className="text-lg font-semibold text-center text-customRed">{project.name}</p>
+                            <p className="text-lg font-semibold text-center text-customRed mt-2">
+                                {project.name}
+                            </p>
                         </div>
                     ))}
                 </div>
 
                 {/* Optional Bottom Bracket */}
-                <div className="hidden lg:block">
+                <div className="hidden">
                     <img
                         src="/images/brackets/solid-white-bracket.png"
                         alt="Solid white bracket"
@@ -134,7 +135,6 @@ const ProjectsDetailed = () => {
 };
 
 export default ProjectsDetailed;
-
 
 
 // projectsData.js
