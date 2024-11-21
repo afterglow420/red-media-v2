@@ -2,6 +2,7 @@ import { useSectionStore } from "@store/useSectionStore";
 import anime from "animejs";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import whiteBracketsLogo from "/images/logos/white-brackets-r.png";
 
 const Process = () => {
     // Navigation
@@ -90,8 +91,9 @@ const Process = () => {
     return (
         <div className="relative flex flex-col justify-center items-center h-full w-full py-5 lg:py-8">
             {/* Section Title */}
-            <div className="absolute z-10 top-0 left-[50%] translate-x-[-50%] bg-[#212121] h-10 flex items-center justify-center px-5 translate-y-[5%] lg:translate-y-[25%] w-3/4 lg:w-3/5">
-                <p className="text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[24px] md:text-[40px] lg:text-[44px] xl:text-[56px] text-start lg:tracking-extra-wider">
+            <div className="absolute z-10 top-0 left-[50%] translate-x-[-50%] bg-[#212121] h-10 flex flex-row items-center justify-center gap-1 lg:gap-5 px-5 translate-y-[5%] lg:translate-y-[25%] w-3/4 lg:w-3/5">
+                <img src={whiteBracketsLogo} alt="White brackets logo" className="h-6 md:h-12 lg:h-12 w-auto" />
+                <p className="text-stroke-1 md:text-stroke-3 text-stroke-customRed max-md:text-customRed text-transparent font-bold text-[1.25rem] md:text-[40px] lg:text-[44px] xl:text-[56px] text-start lg:tracking-wider">
                     Process / Services
                 </p>
             </div>
@@ -115,7 +117,7 @@ const Process = () => {
                 >
                     {/* Numbered Brackets */}
                     <div className="w-[10%] text-left h-full flex flex-row justify-center items-start leading-none tracking-tighter">
-                        <img src="/images/brackets/brackets_1.png" alt="Brackets 1" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2"/>
+                        <img src="/images/brackets/brackets_1.png" alt="Brackets 1" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2" />
                     </div>
                     {/* Gray Bar */}
                     <div className="relative flex justify-center items-center w-full h-full bg-[gray] border-2 border-white"></div>
@@ -134,10 +136,10 @@ const Process = () => {
                     <div className="relative flex justify-center items-center w-full h-full bg-[gray] border-2 border-white"></div>
                     {/* Numbered Brackets */}
                     <div className="w-[10%] text-left h-full flex flex-row justify-center items-start leading-none tracking-tighter">
-                        <img src="/images/brackets/brackets_2.png" alt="Brackets 2" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2"/>
+                        <img src="/images/brackets/brackets_2.png" alt="Brackets 2" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:ml-2" />
                     </div>
                     {/* Centered Text */}
-                    <div className="px-2 absolute top-[50%] translate-y-[-50%] min-w-auto h-auto -right-5 bg-white text-center justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] xl:text-[1.5rem]">
+                    <div className="px-2 absolute top-[50%] translate-y-[-50%] min-w-auto h-auto -right-5 bg-white text-center justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] 2xl:text-[2rem]">
                         COMPLETE ADVERTISING PRODUCTION
                     </div>
                 </div>
@@ -149,12 +151,12 @@ const Process = () => {
                 >
                     {/* Numbered Brackets */}
                     <div className="w-[10%] text-left h-full flex flex-row justify-center items-start leading-none tracking-tighter">
-                        <img src="/images/brackets/brackets_3.png" alt="Brackets 3" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2"/>
+                        <img src="/images/brackets/brackets_3.png" alt="Brackets 3" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2" />
                     </div>
                     {/* Gray Bar */}
                     <div className="relative flex justify-center items-center w-full h-full bg-[gray] border-2 border-white"></div>
                     {/* Centered Text */}
-                    <div className="px-2 absolute top-[50%] translate-y-[-50%] min-w-auto h-auto -left-5 bg-white text-center flex justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] 2xl:text-[1.5rem]">
+                    <div className="px-2 absolute top-[50%] translate-y-[-50%] min-w-auto h-auto -left-5 bg-white text-center flex justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] 2xl:text-[2rem]">
                         DEDICATED TRANSPORT
                     </div>
                 </div>
@@ -168,10 +170,10 @@ const Process = () => {
                     <div className="relative flex justify-center items-center w-full h-full bg-[gray] border-2 border-white"></div>
                     {/* Numbered Brackets */}
                     <div className="w-[10%] text-left h-full flex flex-row justify-center items-start leading-none tracking-tighter">
-                        <img src="/images/brackets/brackets_4.png" alt="Brackets 4" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2"/>
+                        <img src="/images/brackets/brackets_4.png" alt="Brackets 4" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:ml-2" />
                     </div>
                     {/* Centered Text */}
-                    <div className="px-2 absolute top-[50%] translate-y-[-50%] w-auto h-auto -right-5 bg-white text-center flex justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] xl:text-[1.5rem]">
+                    <div className="px-2 absolute top-[50%] translate-y-[-50%] w-auto h-auto -right-5 bg-white text-center flex justify-center items-center text-customRed font-[900] text-[0.75rem] md:text-[1.25rem] lg:text-[1.5rem] 2xl:text-[2rem]">
                         STORAGE / LOGISTICS HANDLING
                     </div>
                 </div>
@@ -183,7 +185,7 @@ const Process = () => {
                 >
                     {/* Numbered Brackets */}
                     <div className="w-[10%] text-left h-full flex flex-row justify-center items-start leading-none tracking-tighter">
-                        <img src="/images/brackets/brackets_5.png" alt="Brackets 5" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2"/>
+                        <img src="/images/brackets/brackets_5.png" alt="Brackets 5" className="h-6 lg:h-8 2xl:h-14 w-auto max-md:mr-2" />
                     </div>
                     {/* Gray Bar */}
                     <div className="relative flex justify-center items-center w-full h-full bg-[gray] border-2 border-white"></div>
