@@ -64,15 +64,15 @@ const ProcessCreation = () => {
     return (
         <div className="relative h-full w-full flex flex-col">
             <Navigation />
-            <div className="flex flex-col items-center justify-center h-[15%] bg-white text-black 2xl:hidden">
+            <div className="flex flex-col items-center justify-center h-[15%] bg-white text-black 2xl:mt-32 2xl:pt-16">
                 <div className="flex flex-row items-center gap-5 lg:gap-5">
                     <img
                         src="/images/logos/gray-brackets-r.png"
                         alt="Gray brackets logo"
                         className="w-12 h-12 lg:w-20 lg:h-20"
                     />
-                    <div className="flex flex-col items-center justify-center leading-none">
-                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold ">
+                    <div className="flex flex-col items-center justify-center leading-none 2xl:flex-row 2xl:gap-3">
+                        <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
                             PROCESS &
                         </p>
                         <p className="text-transparent text-stroke-3 text-stroke-customRed text-[28px] lg:text-[72px] font-bold">
