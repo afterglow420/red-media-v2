@@ -19,7 +19,7 @@ const Manifest = () => {
     // Hooks
     const backgroundImage = useLazyBackgroundImage(
         imageElement,
-        "/images/bg/manifest.jpg"
+        "/images/bg/manifest.png"
     );
 
     // Animation speed coefficient
@@ -50,7 +50,7 @@ const Manifest = () => {
                     {
                         targets: topLaser.current,
                         scaleX: [0, 1],
-                        duration: 500 * animationSpeed,
+                        duration: 1000 * animationSpeed,
                     },
                 );
 
@@ -62,7 +62,7 @@ const Manifest = () => {
                         translateY: ["0%", "-100%"],
                         duration: 500 * animationSpeed,
                     },
-                    "-=250"
+                    "-=500"
                 );
 
                 // Manifest Text Animation
@@ -71,8 +71,8 @@ const Manifest = () => {
                         targets: manifestText.current,
                         opacity: [0, 1],
                         translateX: ["300%", "0%"],
-                        duration: 500 * animationSpeed,
-                    },
+                        duration: 1000 * animationSpeed,
+                    }, '-=250'
                 );
 
                 // Bottom Laser Animation using scaleX
@@ -80,9 +80,9 @@ const Manifest = () => {
                     {
                         targets: bottomLaser.current,
                         scaleX: [0, 1],
-                        duration: 500 * animationSpeed,
+                        duration: 1000 * animationSpeed,
                     },
-                    '-=500'
+                    '-=750'
                 );
 
                 // Bottom Text Animation
@@ -91,8 +91,8 @@ const Manifest = () => {
                         targets: bottomText.current,
                         opacity: [0, 1],
                         translateY: ["0%", "100%"],
-                        duration: 500 * animationSpeed,
-                    },
+                        duration: 1000 * animationSpeed,
+                    },'-=500'
                 );
             });
         } else if (animationsActive.current) {
@@ -197,7 +197,7 @@ const Manifest = () => {
                     {/* Top Text */}
                     <div
                         ref={topText}
-                        className="z-0 absolute top-[6px] md:top-[8px] xl:top-[12px] left-[5%] leading-none font-[900] text-[40px] tracking-wider md:text-[52px] xl:text-[80px]"
+                        className="z-0 absolute top-[6px] xl:top-[12px] 2xl:top-[14px] left-[5%] leading-none font-[900] text-[2.25rem] tracking-wider lg:text-[3rem] xl:text-[4.25rem] 2xl:text-[6rem]"
                         style={{
                             opacity: 0,
                             transform: 'translateY(0%)',
@@ -209,7 +209,7 @@ const Manifest = () => {
                     {/* Top Laser */}
                     <div
                         ref={topLaser}
-                        className="absolute top-0 left-0 w-full h-5 bg-white"
+                        className="absolute top-0 left-0 w-full h-3 bg-white"
                         style={{
                             transform: 'scaleX(0)',
                             transformOrigin: 'left',
@@ -221,21 +221,21 @@ const Manifest = () => {
                     {/* Manifest Text */}
                     <div
                         ref={manifestText}
-                        className="absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] left-0 font-[900] h-[90%] text-[64px] md:text-[80px] lg:text-[160px] xl:text-[220px] leading-none px-1 tracking-tighter"
+                        className="absolute flex flex-col lg:flex-row lg:w-full items-start justify-between top-[5%] lg:-left-2 font-[900] h-[90%] text-[4rem] md:text-[5rem] lg:text-[12rem] 2xl:text-[16rem] leading-none px-1 tracking-tighter"
                         style={{
                             opacity: 0,
                             transform: 'translateX(300%)',
                         }}
                     >
                         {"MANIFEST".split("").map((letter, index) => (
-                            <div key={index}>{letter}</div>
+                            <div key={index} className="flex flex-col items-center justify-center tracking-tighter leading-none">{letter}</div>
                         ))}
                     </div>
 
                     {/* Bottom Laser */}
                     <div
                         ref={bottomLaser}
-                        className="absolute bottom-0 left-0 w-full h-5 bg-white"
+                        className="absolute bottom-0 left-0 w-full h-3 bg-white"
                         style={{
                             transform: 'scaleX(0)',
                             transformOrigin: 'right',
@@ -247,7 +247,7 @@ const Manifest = () => {
                     {/* Bottom Text */}
                     <div
                         ref={bottomText}
-                        className="absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] left-[5%] leading-none font-[900] text-[36px] md:text-[52px] xl:text-[80px]"
+                        className="absolute bottom-[4px] md:bottom-[6px] xl:bottom-[10px] 2xl:bottom-[12px] left-[5%] leading-none font-[900] text-[2.25rem] tracking-wider lg:text-[3rem] xl:text-[4.25rem] 2xl:text-[6rem]"
                         style={{
                             opacity: 0,
                             transform: 'translateY(0%)',
