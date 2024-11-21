@@ -1,8 +1,8 @@
 import { useSectionStore } from "@store/useSectionStore";
 
 const Clients = () => {
-     // Store
-     const { setCurrentSection } = useSectionStore();
+    // Store
+    const { setCurrentSection } = useSectionStore();
 
     // Handlers and Functions
     const handleBackToTop = () => {
