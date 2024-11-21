@@ -42,15 +42,15 @@ const Team = () => {
                 .add({
                     targets: leftBarRef.current,
                     opacity: [0, 1],
-                    translateX: ['-200%', '0%'],
-                    duration: 500,
+                    translateX: ['-400%', '0%'],
+                    duration: 1000,
                     begin: function () {
                         // Animate the right bar at the beginning of left bar animation
                         anime({
                             targets: rightBarRef.current,
-                            translateX: ['200%', '0%'],
-                            duration: 500,
-                            easing: 'easeOutExpo',
+                            translateX: ['400%', '0%'],
+                            duration: 1000,
+                            easing: 'easeOutQuad',
                         });
                     },
                 })
@@ -58,9 +58,9 @@ const Team = () => {
                 .add({
                     targets: teamTitleRef.current,
                     opacity: [0, 1],
-                    scale: [0.5, 1],
-                    duration: 500,
-                })
+                    scale: [0.1, 1],
+                    duration: 1000,
+                }, '-=500') // Offset the team title animation
                 // Animate the team members with stagger
                 .add({
                     targets: membersRef.current.map(ref => ref.current),
@@ -184,7 +184,7 @@ const Team = () => {
                             }}
                         >
                             {/* Card Image */}
-                            <div className="w-36 md:w-60 h-36 md:h-60 lg:w-80 lg:h-80 rounded-xl border-2 border-black justify-center items-center flex bg-[white] shadow-2xl text-black font-bold">
+                            <div className="w-36 md:w-56 h-36 md:h-56 lg:w-52 lg:h-52 2xl:w-96 2xl:h-96 rounded-xl border-2 border-black justify-center items-center flex bg-[white] shadow-2xl text-black font-bold">
                                 Image
                             </div>
                             {/* Name and Position */}
