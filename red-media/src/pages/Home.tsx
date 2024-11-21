@@ -17,6 +17,7 @@ const Home = () => {
     useScrollControl();
 
     const setTotalSections = useSectionStore((state) => state.setTotalSections);
+    const totalSections = useSectionStore((state) => state.totalSections);
     // Effects
     useEffect(() => {
         // Update the total number of sections
@@ -28,6 +29,9 @@ const Home = () => {
 
     return (
         <div className="text-white">
+            <div className='absolute top-50 left-50 text-red-600 text-2xl z-[100]'>
+                {`Total Sections: ${totalSections}`}
+            </div>
             <div className={`h-dvh w-full`} id="section-1" ref={(el) => (sectionsRef.current[0] = el)}>
                 <VideoPresentation />
             </div>
